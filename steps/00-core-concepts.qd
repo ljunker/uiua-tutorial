@@ -1,0 +1,116 @@
+.docname {0. Core Concepts}
+.include {docs}
+
+This page explains the vocabulary used throughout the tutorial. Uiua becomes much easier once these words are clear, because the same few ideas show up in almost every glyph.
+
+## The Stack
+
+Uiua is stack-based. A value appears, then later functions consume values from the stack and leave their results behind.
+
+```uiua
++ 2 3
+```
+
+Uiua reads this from right to left. First `3` is placed on the stack, then `2`, then `+` consumes both values and leaves `5`.
+
+For comparison, this leaves two results on the stack:
+
+```uiua
++ 2 3
+× 6 7
+```
+
+The first line leaves `5`. The second line leaves `42`. When a file finishes, Uiua prints the remaining stack values.
+
+## Arity
+
+Arity means "how many arguments a function takes." Uiua documentation often talks about this because glyphs are tiny and the arity tells you how much stack data they consume.
+
+| Term | Meaning | Example |
+| --- | --- | --- |
+| Niladic | takes 0 arguments | `π` produces pi |
+| Monadic | takes 1 argument | `√ 9` consumes one value and returns `3` |
+| Dyadic | takes 2 arguments | `+ 2 3` consumes two values and returns `5` |
+| Triadic | takes 3 arguments | some advanced functions consume three values |
+
+The word is **dyadic**, not "diadric." A dyadic function is simply a two-argument function. In Uiua, common dyadic functions include `+`, `-`, `×`, `÷`, `⊂`, `⊏`, and `↯`.
+
+## Dyadic Order
+
+Some dyadic glyphs are easiest to read as "apply this operation using the first value to the second value."
+
+```uiua
+- 4 10
+÷ 2 10
+```
+
+These mean:
+
+- `- 4 10` gives `10 - 4`
+- `÷ 2 10` gives `10 / 2`
+
+This convention lets you write useful partial-looking code such as `÷2`, which means "divide by 2", and `≥25`, which means "is at least 25."
+
+## Pervasive Functions
+
+A pervasive function works through arrays automatically. You do not need to write a loop.
+
+```uiua
++1 [10 20 30]
+```
+
+Output:
+
+```txt
+[11 21 31]
+```
+
+The same `+` glyph works on scalars, vectors, and compatible arrays. This is why basic arithmetic and comparisons are introduced early: they immediately become array tools.
+
+## Modifiers
+
+A modifier is a glyph that takes a function as an operand. It changes how that function is applied.
+
+```uiua
+/+ [1 2 3 4]
+```
+
+`/` is the modifier and `+` is the function it modifies. Together, `/+` means "reduce with addition", so the result is `10`.
+
+```uiua
+≡/+ [1_2_3 4_5_6]
+```
+
+Here `≡` modifies `/+`. It applies "sum a row" to each row of the matrix, producing `[6 15]`.
+
+## Tacit Code
+
+Tacit code means code that describes data flow mostly by composing functions instead of naming every intermediate value.
+
+```uiua
+Mean ← ˜÷⊃(/+|⧻)
+```
+
+This says: for one input array, fork it into two computations, `/+` for sum and `⧻` for length, then use `˜÷` to divide sum by length. The array itself is never named inside the function body.
+
+Tacit code is powerful, but it is also dense. In this tutorial, prefer clarity first: name helpers, run small snippets, and only compress code after you understand the data flow.
+
+## Exercise: Classify Glyphs by Arity
+
+For each glyph, decide whether it is niladic, monadic, dyadic, or a modifier:
+
+```txt
+π  √  +  ↯  /  ≡
+```
+
+<details>
+<summary>Solution</summary>
+
+- `π` is niladic: it produces a value.
+- `√` is monadic: it takes one number or array.
+- `+` is dyadic: it adds two values.
+- `↯` is dyadic: it reshapes an array using a shape.
+- `/` is a modifier: it takes a function such as `+`.
+- `≡` is a modifier: it takes a function and applies it to rows.
+
+</details>

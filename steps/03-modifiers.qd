@@ -1,0 +1,122 @@
+.docname {3. Modifiers}
+.include {docs}
+
+Modifiers change how another function is applied. They are central to practical Uiua.
+
+## Reduce
+
+`/` reduces an array with a dyadic function. A dyadic function takes two arguments, so `/+` can repeatedly combine neighboring values: first combine two rows, then combine that result with the next row, and so on until one result remains.
+
+```uiua
+/+ [1 2 3 4 5]
+```
+
+Output:
+
+```txt
+15
+```
+
+Read it as "reduce with plus".
+
+## Scan
+
+`\` is like reduce, but keeps intermediate results.
+
+```uiua
+\+ [1 2 3 4 5]
+```
+
+Output:
+
+```txt
+[1 3 6 10 15]
+```
+
+## Rows
+
+`≡` applies a function to each row.
+
+```uiua
+≡/+ [1_2_3 4_5_6 7_8_9]
+```
+
+Output:
+
+```txt
+[6 15 24]
+```
+
+## Table
+
+`⊞` applies a function to every pair of rows from two arrays.
+
+```uiua
+⊞× 1_2_3 1_2_3
+```
+
+This creates a multiplication table.
+
+## Exercise 1: Sum Expenses
+
+Given daily expenses:
+
+```uiua
+[12 7 19 4 8]
+```
+
+Write code that returns the total.
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+/+ [12 7 19 4 8]
+```
+
+</details>
+
+## Exercise 2: Running Total
+
+Using the same expenses, produce a running total.
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+\+ [12 7 19 4 8]
+```
+
+</details>
+
+## Exercise 3: Row Totals
+
+Each row is one week of sales:
+
+```uiua
+[10_12_9 8_15_11 13_14_10]
+```
+
+Return the total for each week.
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+≡/+ [10_12_9 8_15_11 13_14_10]
+```
+
+</details>
+
+## Exercise 4: Multiplication Table
+
+Create a 5-by-5 multiplication table for `1` through `5`.
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+⊞× +1⇡5 +1⇡5
+```
+
+</details>

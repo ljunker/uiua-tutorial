@@ -1,0 +1,138 @@
+.docname {5. Practical Data Work}
+.include {docs}
+
+This step combines the pieces into small data-analysis tasks.
+
+We will use this score vector:
+
+```uiua
+Scores ← [18 22 31 25 29 40]
+```
+
+## Total, Count, and Mean
+
+```uiua
+Scores ← [18 22 31 25 29 40]
+Mean ← ˜÷⊃(/+|⧻)
+
+/+ Scores
+⧻ Scores
+Mean Scores
+```
+
+## Minimum and Maximum
+
+`↧` and `↥` compare two arrays. Reduce with them to get the minimum or maximum.
+
+```uiua
+/↧ Scores
+/↥ Scores
+```
+
+## Normalize by Maximum
+
+This turns each score into a fraction of the maximum score:
+
+```uiua
+Normalize ← ˜÷⟜(/↥)
+Normalize Scores
+```
+
+Output:
+
+```txt
+[0.45 0.55 0.775 0.625 0.725 1]
+```
+
+## Center Around the Mean
+
+This subtracts the mean from every score:
+
+```uiua
+Centered ← ˜-⟜Mean
+Centered Scores
+```
+
+Output:
+
+```txt
+[¯9.5 ¯5.5 3.5 ¯2.5 1.5 12.5]
+```
+
+## Exercise 1: Temperature Summary
+
+Given temperatures:
+
+```uiua
+Temps ← [14 16 13 19 21 18 17]
+```
+
+Return the minimum, maximum, and mean.
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+Temps ← [14 16 13 19 21 18 17]
+Mean ← ˜÷⊃(/+|⧻)
+
+/↧ Temps
+/↥ Temps
+Mean Temps
+```
+
+</details>
+
+## Exercise 2: Normalize Sales
+
+Given weekly sales:
+
+```uiua
+Sales ← [120 90 150 180 160]
+```
+
+Return each value as a fraction of the best week.
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+Sales ← [120 90 150 180 160]
+Normalize ← ˜÷⟜(/↥)
+Normalize Sales
+```
+
+</details>
+
+## Exercise 3: Weekly Totals Matrix
+
+Each row is one week. Each column is one product.
+
+```uiua
+SalesByWeek ← [10_12_9 8_15_11 13_14_10 9_9_12]
+```
+
+Return total sales for each week.
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+SalesByWeek ← [10_12_9 8_15_11 13_14_10 9_9_12]
+≡/+ SalesByWeek
+```
+
+</details>
+
+## Exercise 4: Product Multipliers
+
+Create a table that shows every combination of product counts `1` through `4` and prices `5`, `10`, and `20`.
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+⊞× +1⇡4 5_10_20
+```
+
+</details>

@@ -1,0 +1,85 @@
+.docname {C. Array Structure}
+.include {docs}
+
+These glyphs teach you how Uiua sees data: rows, shapes, axes, and boxed structure.
+
+Uiua arrays are rectangular unless you use boxes. A vector has one axis, a matrix has two axes, and a higher-rank array has more. Most array glyphs operate on rows first, which means the leading axis is often the axis you are processing.
+
+The best habit is to inspect shapes constantly. If an expression does not make sense, run the same expression with `△` in front of it. Shape debugging is faster than guessing.
+
+## Shape and Construction
+
+| Glyph | Name | Meaning | Example |
+| --- | --- | --- | --- |
+| `⧻` | length | number of rows | `⧻ [10 20 30]` |
+| `△` | shape | full dimensions | `△ ↯2_3⇡6` |
+| `⇡` | range | numbers below bound | `⇡ 6` |
+| `↯` | reshape | change shape | `↯ 2_3 ⇡6` |
+| `♭` | deshape | flatten | `♭ ↯2_3⇡6` |
+| `¤` | fix | add length-1 axis | `¤ [1 2 3]` |
+| `□` | box | box nested data | `□ [1 2 3]` |
+| `⋕` | parse | parse string as number | `⋕ "42"` |
+
+`⇡`, `↯`, and `△` form the basic shape loop: make data, reshape it, inspect it. `⇡12` gives a flat vector; `↯3_4⇡12` gives the same elements as a 3-by-4 matrix; `△↯3_4⇡12` confirms the shape.
+
+`□` is different from reshaping. Boxing preserves a value as one item, even if the boxed value has its own shape. Use boxes for mixed or jagged data, such as a list of words with different lengths.
+
+## Rows and Axis Tools
+
+| Glyph | Name | Meaning | Example |
+| --- | --- | --- | --- |
+| `⊢` | first | first row | `⊢ [8 3 9]` |
+| `⊣` | last | last row | `⊣ [8 3 9]` |
+| `⇌` | reverse | reverse rows | `⇌ [8 3 9]` |
+| `⍉` | transpose | rotate axes | `⍉ ↯2_3⇡6` |
+| `⍆` | sort | sort rows | `⍆ [3 1 2]` |
+| `⍏` | rise | indices for ascending sort | `⍏ [3 1 2]` |
+| `⍖` | fall | indices for descending sort | `⍖ [3 1 2]` |
+| `☇` | rerank | change row rank, deprecated | `☇ 1 ↯2_3_3⇡18` |
+
+`⊢` and `⊣` are small but practical: after sorting, they give minimum-like and maximum-like values for many kinds of data. `⍏` and `⍖` do not sort directly; they return the indices that would sort, which is useful when you want to sort one array by another array's keys.
+
+## Exercise 1: Build a Timesheet
+
+Create a 5-by-3 matrix from `0` through `14`, then return its shape.
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+△ ↯5_3 ⇡15
+```
+
+</details>
+
+## Exercise 2: Sort by Data
+
+Sort `[12 7 19 4 8]`, then return the first and last values.
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+Sorted ← ⍆ [12 7 19 4 8]
+⊢ Sorted
+⊣ Sorted
+```
+
+</details>
+
+## Exercise 3: Parse Numbers
+
+Convert these boxed strings to numbers:
+
+```uiua
+{"12" "7" "19"}
+```
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+⋕ {"12" "7" "19"}
+```
+
+</details>

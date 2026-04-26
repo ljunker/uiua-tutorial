@@ -1,0 +1,77 @@
+.docname {6. Capstone}
+.include {docs}
+
+The capstone is a small report over a week of shop data. Try to solve it in `scratch.ua` before opening the solution.
+
+## Data
+
+Rows are days. Columns are products.
+
+```uiua
+Sales ← [12_9_4 15_8_7 10_11_6 18_12_9 14_10_8 20_15_11 16_13_10]
+Prices ← 5_8_12
+```
+
+## Tasks
+
+1. Compute revenue for each product on each day.
+2. Compute total revenue per day.
+3. Compute total revenue for the week.
+4. Compute the running daily revenue.
+5. Compute the mean daily revenue.
+
+## Hints
+
+- Array multiplication works elementwise.
+- `≡/+` sums each row.
+- `/+` sums a whole vector.
+- `\+` gives running totals.
+- Reuse `Mean ← ˜÷⊃(/+|⧻)`.
+
+## Solution
+
+<details>
+<summary>Open solution</summary>
+
+```uiua
+Sales ← [12_9_4 15_8_7 10_11_6 18_12_9 14_10_8 20_15_11 16_13_10]
+Prices ← 5_8_12
+Mean ← ˜÷⊃(/+|⧻)
+
+RevenueByProduct ← ×¤Prices
+DailyRevenue ← ≡/+
+WeeklyRevenue ← /+
+RunningRevenue ← \+
+
+Revenue ← RevenueByProduct Sales
+Daily ← DailyRevenue Revenue
+
+Revenue
+Daily
+WeeklyRevenue Daily
+RunningRevenue Daily
+Mean Daily
+```
+
+</details>
+
+## Extension Exercises
+
+1. Change the product prices and rerun the report.
+2. Add an eighth day to `Sales`.
+3. Add a fourth product by changing every sales row and adding one price.
+4. Normalize daily revenue by the best day.
+5. Center daily revenue around the mean.
+
+<details>
+<summary>Extension solution snippets</summary>
+
+```uiua
+Normalize ← ˜÷⟜(/↥)
+Centered ← ˜-⟜Mean
+
+Normalize Daily
+Centered Daily
+```
+
+</details>

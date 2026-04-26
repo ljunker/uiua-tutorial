@@ -1,0 +1,124 @@
+.docname {4. Functions}
+.include {docs}
+
+Once an expression works, give it a name. Uiua uses `←` for bindings.
+
+```uiua
+Double ← ×2
+Double 21
+```
+
+Output:
+
+```txt
+42
+```
+
+## Composition
+
+Uiua code is often built by composing small functions. This converts Celsius to Fahrenheit:
+
+```uiua
+Fahrenheit ← +32×1.8
+Fahrenheit 20
+```
+
+Output:
+
+```txt
+68
+```
+
+Read from right to left: multiply by `1.8`, then add `32`.
+
+## Fork
+
+`⊃` calls two functions on the same input. This mean function computes both the sum and the length of the array, then divides sum by length.
+
+```uiua
+Mean ← ˜÷⊃(/+|⧻)
+Mean [4 8 15 16 23 42]
+```
+
+Output:
+
+```txt
+18
+```
+
+`˜÷` means "divide with the arguments swapped", which gives `sum / length`.
+
+## Self
+
+`˙` calls a function with the same value as all of its arguments.
+
+```uiua
+Square ← ˙×
+Square 9
+```
+
+Output:
+
+```txt
+81
+```
+
+## Exercise 1: Name a Discount
+
+Write a function `Discount10` that takes a price and returns 90% of it.
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+Discount10 ← ×0.9
+Discount10 80
+```
+
+</details>
+
+## Exercise 2: Celsius Batch
+
+Use `Fahrenheit` on the vector `0_10_20_30`.
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+Fahrenheit ← +32×1.8
+Fahrenheit 0_10_20_30
+```
+
+</details>
+
+## Exercise 3: Mean of Scores
+
+Compute the mean of:
+
+```uiua
+[18 22 31 25 29 40]
+```
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+Mean ← ˜÷⊃(/+|⧻)
+Mean [18 22 31 25 29 40]
+```
+
+</details>
+
+## Exercise 4: Squares
+
+Use `Square` on the vector `1_2_3_4_5`.
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+Square ← ˙×
+Square 1_2_3_4_5
+```
+
+</details>

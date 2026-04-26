@@ -1,0 +1,13 @@
+.doclang {English}
+.docdescription {A practical step-by-step Uiua tutorial with runnable exercises.}
+.dockeywords
+  - uiua
+  - array language
+  - tutorial
+  - exercises
+  - quarkdown
+
+.theme {paperwhite} layout:{minimal}
+
+.pagemargin {topright}
+    [Uiua](https://www.uiua.org/) · [Quarkdown](https://quarkdown.com/)

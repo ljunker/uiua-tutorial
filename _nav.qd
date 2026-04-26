@@ -1,0 +1,18 @@
+###! Start
+- [Home](main.qd)
+- [0. Core Concepts](steps/00-core-concepts.qd)
+- [1. First Contact](steps/01-first-contact.qd)
+- [2. Arrays](steps/02-arrays.qd)
+- [3. Modifiers](steps/03-modifiers.qd)
+- [4. Functions](steps/04-functions.qd)
+- [5. Practical Data Work](steps/05-practical-data.qd)
+- [6. Capstone](steps/06-capstone.qd)
+
+###! Glyph Curriculum
+- [Glyph Roadmap](glyphs/00-roadmap.qd)
+- [A. Syntax and Starter Glyphs](glyphs/01-syntax-starters.qd)
+- [B. Math and Comparisons](glyphs/02-math-comparison.qd)
+- [C. Array Structure](glyphs/03-array-structure.qd)
+- [D. Selection and Searching](glyphs/04-selection-search.qd)
+- [E. Modifiers](glyphs/05-modifiers.qd)
+- [F. Advanced and Experimental](glyphs/06-advanced.qd)

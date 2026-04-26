@@ -1,0 +1,93 @@
+.docname {2. Arrays}
+.include {docs}
+
+Uiua is an array language. Scalars, vectors, matrices, and higher-dimensional values are all arrays.
+
+## Vectors
+
+Use brackets for arrays:
+
+```uiua
+[1 2 3 4 5]
+```
+
+Short arrays can also use strand notation with underscores:
+
+```uiua
+1_2_3_4_5
+```
+
+## Ranges
+
+`⇡` creates a range from `0` up to, but not including, the given number.
+
+```uiua
+⇡10
+```
+
+Output:
+
+```txt
+[0 1 2 3 4 5 6 7 8 9]
+```
+
+## Shape and Reshape
+
+`△` gets an array's shape. `↯` reshapes data.
+
+```uiua
+↯ 2_3 ⇡6
+△ ↯ 2_3 ⇡6
+```
+
+The first expression makes a 2-by-3 matrix. The second returns its shape, `[2 3]`.
+
+## Exercise 1: Make a Calendar Row
+
+Create a vector for the days `1` through `7`.
+
+Hint: `⇡7` starts at `0`, so shift it.
+
+<details>
+<summary>Solution</summary>
+
+```uiua
++1 ⇡7
+```
+
+</details>
+
+## Exercise 2: Make a 3-by-4 Grid
+
+Build this matrix from the numbers `0` through `11`:
+
+```txt
+0 1 2  3
+4 5 6  7
+8 9 10 11
+```
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+↯ 3_4 ⇡12
+```
+
+</details>
+
+## Exercise 3: Inspect Before You Transform
+
+Run both expressions and explain the difference:
+
+```uiua
+△ ⇡12
+△ ↯ 3_4 ⇡12
+```
+
+<details>
+<summary>Solution</summary>
+
+`⇡12` is a vector, so its shape is `[12]`. `↯ 3_4 ⇡12` is a matrix, so its shape is `[3 4]`.
+
+</details>

@@ -1,0 +1,88 @@
+.docname {E. Modifiers}
+.include {docs}
+
+Modifiers take functions as operands. This is where Uiua starts to feel concise.
+
+A modifier is not just another one-argument function. It changes a function. In `/+`, the `/` modifies `+`; in `≡/+`, `≡` modifies the whole row-summing function `/+`. Read modifier expressions from the modified function outward until the pattern becomes natural.
+
+This page uses the terms monadic and dyadic heavily. A monadic function takes one argument; a dyadic function takes two. `/ reduce` usually wants a dyadic function because it combines two rows into one. `≡ rows` can use monadic or dyadic functions depending on how many arrays you give it.
+
+## Core Iteration and Mapping
+
+| Glyph | Name | Meaning | Example |
+| --- | --- | --- | --- |
+| `/` | reduce | combine rows | `/+ [1 2 3]` |
+| `\` | scan | running reduce | `\+ [1 2 3]` |
+| `∧` | fold | reduce with accumulator | `∧+ [1 2 3] 10` |
+| `≡` | rows | apply to each row | `≡/+ [1_2 3_4]` |
+| `∵` | each | element-wise mapping, deprecated | `∵□ 1_2_3` |
+| `⊞` | table | all row combinations | `⊞× 1_2_3 1_2_3` |
+| `⍥` | repeat | repeat a function | `⍥(+2)5 0` |
+| `⧈` | stencil | sliding windows | `⧈□ 3 ⇡6` |
+| `◫` | windows | old window materializer, deprecated | `◫ 3 ⇡6` |
+
+`/`, `\`, and `∧` all walk through data in order. Use `/` when you only want the final result, `\` when you want every intermediate result, and `∧` when you need an explicit accumulator or initial value.
+
+`≡` and `⊞` answer different questions. `≡` says "do this to each row." `⊞` says "do this to each pair or combination of rows." A multiplication table is naturally `⊞×`, while row totals are naturally `≡/+`.
+
+## Grouping and Box-Aware Work
+
+| Glyph | Name | Meaning | Example |
+| --- | --- | --- | --- |
+| `⊕` | group | group by bucket index | `⊕□ 0_1_0 [5 6 7]` |
+| `⊜` | partition | group sequential sections | `⊜□ 1_1_0_2 "abcd"` |
+| `⍚` | inventory | rows over unboxed content, rebox | `⍚⇡ [3 1 2]` |
+| `◇` | content | unbox arguments before function | `◇/+ □[1 2 3]` |
+| `⧅` | tuples | combinations/permutations/prefixes | `⧅< 2 ⇡5` |
+| `⧋` | evert | reverse argument axes during call | `⧋+ 2_4 [1_2 2_0]` |
+
+Grouping often creates uneven groups. Uneven groups do not fit in a normal rectangular array, so `□ box` and `◇ content` show up frequently here. A common pattern is to group or partition into boxed chunks, process each chunk, then unbox only when the shapes are compatible again.
+
+## Control-Like Modifiers
+
+| Glyph | Name | Meaning | Example |
+| --- | --- | --- | --- |
+| `⬚` | fill | provide fill value | `⬚0↙ 5 [1 2]` |
+| `⨬` | switch | choose function by index | `⨬(+|-|×) 2 3 5` |
+| `⍢` | do | repeat while condition holds | `⍢(×2|<1000) 1` |
+
+`⬚ fill` is not only a default value. It temporarily changes how a function handles shape mismatch or missing data. For beginner code, use it when an otherwise sensible expression fails because one row is shorter, one index is missing, or one take operation asks for more data than exists.
+
+## Exercise 1: Running Balance
+
+Starting balance is `100`. Transactions are `[20 ¯5 ¯12 30]`. Return running balances.
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+\+ [100 20 ¯5 ¯12 30]
+```
+
+</details>
+
+## Exercise 2: Moving Sum
+
+For `[1 2 3 4 5 6]`, return the sum of each 3-item window.
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+⧈/+ 3 [1 2 3 4 5 6]
+```
+
+</details>
+
+## Exercise 3: Group Totals
+
+Group values `[10 20 30 40 50]` by keys `[0 1 0 1 0]` and sum each group.
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+⊕/+ [0 1 0 1 0] [10 20 30 40 50]
+```
+
+</details>

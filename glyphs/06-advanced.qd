@@ -1,0 +1,93 @@
+.docname {F. Advanced and Experimental}
+.include {docs}
+
+These glyphs are useful, but they require more context. Learn them after the core array and modifier pages.
+
+Advanced glyphs are not "better" glyphs. They solve specific problems: preserving arguments during tacit composition, inverting transformations, catching errors, or experimenting with symbolic and geometric operations. Use them when they clarify a real data-flow problem, not just to make code shorter.
+
+## Argument and Inversion Tools
+
+| Glyph | Name | Meaning | Status |
+| --- | --- | --- | --- |
+| `∩` | both | call a function on two sets of values | stable |
+| `⤙` | with | keep last argument before outputs | stable |
+| `⤚` | off | keep first argument after outputs | stable |
+| `◡` | below | keep arguments after outputs | stable |
+| `◠` | above | keep arguments above outputs | experimental |
+| `∪` | reach | skip the second argument | experimental |
+| `𝄐` | old reach | old reach form | experimental/deprecated |
+| `°` | un | invert a function | stable |
+| `⌝` | anti | inverse treating first argument as constant | stable |
+| `⍜` | under | transform, modify, untransform | stable |
+| `⌅` | obverse | define inverse behavior | stable |
+
+The argument tools are easiest to learn by reading stack diagrams, not by memorizing names. `∩ both` applies one function to two groups of inputs. `⤙ with`, `⤚ off`, and `◡ below` preserve arguments around a function call. They are mainly useful when a named intermediate value would otherwise interrupt a concise pipeline.
+
+The inversion tools are about reversible thinking. `°` asks for the inverse of a function, `⌝` asks for an inverse while treating one argument as fixed, and `⍜` means "go into a transformed view, change something, then come back." For example, `⍜×⁅ 1000 π` rounds pi after scaling by `1000`, then unscales it.
+
+## Error, Testing, and Assertions
+
+| Glyph | Name | Meaning | Status |
+| --- | --- | --- | --- |
+| `⍣` | try | catch errors | stable |
+| `⍩` | case | pattern-matching case helper | stable |
+| `⍤` | assert | throw if condition is not met | stable |
+
+These glyphs matter when examples become scripts. `⍣ try` lets you recover from a failed parse or missing lookup. `⍤ assert` lets you state assumptions directly in code. `⍩ case` is more specialized; it helps pattern-matching code fail loudly instead of accidentally falling through to another branch.
+
+## Advanced Numeric and Algorithmic Glyphs
+
+| Glyph | Name | Meaning | Status |
+| --- | --- | --- | --- |
+| `⩜` | geometric | geometric algebra mode | experimental |
+| `∂` | derivative | symbolic derivative | experimental |
+| `∫` | integral | symbolic antiderivative | experimental |
+
+Experimental glyphs can change across Uiua versions. This tutorial lists them so you can recognize them, but they should not be the foundation of beginner exercises. If you use them, check `uiua doc <glyph-or-name>` on your installed version.
+
+## Exercise 1: Try Parse with Default
+
+Parse a list of boxed strings, returning `0` for values that fail:
+
+```uiua
+{"12" "x" "7"}
+```
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+≡⍣⋕0 {"12" "x" "7"}
+```
+
+</details>
+
+## Exercise 2: Modify Through a Transformation
+
+Round `π` to three decimal places using `⍜`, `×`, and `⁅`.
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+⍜×⁅ 1000 π
+```
+
+</details>
+
+## Exercise 3: Recognize Experimental Code
+
+Read this code without changing it:
+
+```uiua
+∂˙× 5
+```
+
+What should it represent?
+
+<details>
+<summary>Solution</summary>
+
+`˙×` squares its input. `∂` asks for the derivative. At `5`, the derivative of `x²` is `10`.
+
+</details>

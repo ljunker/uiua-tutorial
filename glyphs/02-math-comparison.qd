@@ -1,0 +1,102 @@
+.docname {B. Math and Comparisons}
+.include {docs}
+
+These glyphs are the most comfortable way into Uiua because most are pervasive: they work on scalars and arrays.
+
+"Pervasive" means the glyph automatically reaches into compatible arrays. `+1 4` returns `5`, but `+1 [10 20 30]` returns `[11 21 31]`. This is the main reason array languages feel different from loop-based languages: you often describe the whole transformation at once.
+
+Many dyadic math glyphs use Uiua's modifier-style reading: the first argument configures the operation applied to the second argument. `÷2 10` is "divide 10 by 2", not "2 divided by 10." This makes short functions like `÷2`, `×100`, and `≥25` read naturally.
+
+## Scalar and Pervasive Math
+
+| Glyph | Name | Meaning | Example |
+| --- | --- | --- | --- |
+| `+` | add | add values | `+ 2 3` |
+| `-` | subtract | subtract first from second | `- 2 10` |
+| `×` | multiply | multiply values | `× 3 7` |
+| `÷` | divide | divide second by first | `÷ 2 10` |
+| `¯` | negate | negate a number | `¯ 5` |
+| `⨪` | reciprocal | `1 / x` | `⨪ 4` |
+| `√` | sqrt | square root | `√ 81` |
+| `⌵` | absolute value | magnitude or uppercase chars | `⌵ ¯7` |
+| `⌊` | floor | round down | `⌊ 3.8` |
+| `⌈` | ceiling | round up | `⌈ 3.2` |
+| `⁅` | round | nearest integer | `⁅ 3.6` |
+| `◿` | modulo | remainder | `◿ 5 17` |
+| `ⁿ` | power | raise second to first | `ⁿ 2 8` |
+| `ₙ` | logarithm | based log, deprecated | `ₙ 2 8` |
+
+The safest first mental model is: `+`, `×`, `↧`, `↥`, and `=` feel symmetric, while `-`, `÷`, `◿`, `ⁿ`, and comparisons care strongly about argument order. When a result surprises you, run the same glyph with the arguments swapped or add `˜` to make the reversal explicit.
+
+## Comparison and Boolean-Style Glyphs
+
+| Glyph | Name | Meaning | Example |
+| --- | --- | --- | --- |
+| `=` | equals | compare equality | `= 5 5` |
+| `≠` | not equals | compare inequality | `≠ 5 4` |
+| `<` | less than | test second `<` first | `< 10 7` |
+| `≤` | less or equal | test second `≤` first | `≤ 10 10` |
+| `>` | greater than | test second `>` first | `> 10 12` |
+| `≥` | greater or equal | test second `≥` first | `≥ 10 12` |
+| `¬` | not | logical not / `1-x` | `¬ [0 1 1 0]` |
+| `±` | sign | sign of values | `± [¯2 0 3]` |
+| `↧` | minimum | pairwise min | `↧ 3 5` |
+| `↥` | maximum | pairwise max | `↥ 3 5` |
+| `∨` | or | logical OR / GCD, experimental | `∨ 16 24` |
+
+Comparisons return numeric masks made of `0`s and `1`s. Those masks become useful with `▽ keep`, `⊚ where`, and arithmetic. For example, `≥25 Scores` creates a mask, and `▽⊸≥25 Scores` uses that mask to keep only passing scores.
+
+## Constants and Numeric Tools
+
+| Glyph | Name | Meaning | Example |
+| --- | --- | --- | --- |
+| `η` | eta | quarter turn in radians | `η` |
+| `π` | pi | half turn in radians | `π` |
+| `τ` | tau | full turn in radians | `τ` |
+| `∞` | infinity | infinity | `↧ 5 ∞` |
+| `ₑ` | exponential | exponential / base with subscript | `ₑ 1` |
+| `∿` | sine | sine in radians | `∿ η` |
+| `∠` | atangent | angle from y and x | `∠ 1 0` |
+| `ℂ` | complex | build complex number | `ℂ 3 4` |
+| `⚂` | random | random number in `[0,1)` | `⚂` |
+
+The constants are ordinary values, so they can participate in expressions without ceremony. `×2π` means "multiply by two pi", and `∿×τ÷⟜⇡8` samples sine over one full turn. You do not need all of this immediately, but it helps to know that the math glyphs compose directly.
+
+## Exercise 1: Vectorized Discounts
+
+Prices are `[30 50 80 120]`. Return prices after 15% off.
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+×0.85 [30 50 80 120]
+```
+
+</details>
+
+## Exercise 2: Threshold Mask
+
+For scores `[18 22 31 25 29 40]`, return a mask for scores at least `25`.
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+≥25 [18 22 31 25 29 40]
+```
+
+</details>
+
+## Exercise 3: Clamp with Min and Max
+
+Clamp `[¯5 3 12 27]` into the range `0..20`.
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+↧20 ↥0 [¯5 3 12 27]
+```
+
+</details>

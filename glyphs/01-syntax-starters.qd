@@ -1,0 +1,72 @@
+.docname {A. Syntax and Starter Glyphs}
+.include {docs}
+
+Start here. These glyphs either structure Uiua code or help you reason about stack flow.
+
+Syntax glyphs do not all behave like functions. Some create values (`[]`, `{}`, `""`, `@`), some organize code (`()`, `|`), and some change how a preceding glyph is read (`⌞`, `⌟`, subscripts). Learn these separately from primitive functions; otherwise it is easy to ask "what does `[` return?" when the better question is "what array does this notation build?"
+
+## Syntax Glyphs
+
+| Glyph | Role | Difficulty | Example |
+| --- | --- | --- | --- |
+| `←` | bind a name | 0 | `Double ← ×2` |
+| `[]` | regular array notation | 0 | `[1 2 3]` |
+| `{}` | box array notation for mixed or nested values | 3 | `{1 "two" 3_4}` |
+| `()` | group a function expression | 1 | `Mean ← ˜÷⊃(/+|⧻)` |
+| `|` | separate functions in a function pack | 3 | `⊃(/+|⧻)` |
+| `""` | string literal | 0 | `"Uiua"` |
+| `_` | strand notation | 0 | `1_2_3` |
+| `@` | character literal | 1 | `@a` |
+| `$` | string/comment forms | 1 | `$ Words become a string` |
+| `#` | comment | 0 | `# explain the next line` |
+| `&` | system function prefix | 5 | `&p "hello"` |
+| `!` | option-call syntax | 7 | `layout!(°⊸Size 300_350) 30 "Hi"` |
+| `⌞` `⌟` | sided subscript markers | 6 | `≡⌞⊂` |
+| `₀..₉` `₋` | numeric subscript markers | 5 | `⧈₃/+` |
+
+## Starter Stack Glyphs
+
+These glyphs are about moving or reusing arguments. They are powerful, but they can also make code hard to read if used too early. When learning, use them in tiny bracketed examples like `[⊙+ 1 2 3]` so you can see the whole stack result.
+
+| Glyph | Name | What it does | Practice first with |
+| --- | --- | --- | --- |
+| `∘` | identity | returns its argument unchanged | `∘ 5` |
+| `◌` | pop | discards the first argument | `[◌ 1 2]` |
+| `.` | duplicate | duplicates the top value; deprecated | `[. 1 2]` |
+| `:` | flip | swaps top two values; deprecated | `[: 1 2]` |
+| `˙` | self | calls a function using the same value for all arguments | `˙× 9` |
+| `˜` | backward | swaps a function's argument order | `˜- 2 5` |
+| `⊙` | dip | skips one argument and calls a function later | `[⊙+ 1 2 3]` |
+| `⋅` | gap | discards one argument before calling a function | `⋅+ 1 2 3` |
+| `⟜` | on | keeps the first argument before outputs | `÷⟜⇡ 5` |
+| `⊸` | by | keeps the last argument after outputs | `⊸+ 2 5` |
+| `⊃` | fork | calls two functions on the same input | `⊃(/+|⧻) [1 2 3]` |
+| `⊓` | bracket | calls two functions on separate inputs | `⊓+× 1 2 3 4` |
+| `?` | args | debug-print stack values | `1 2 ? +` |
+
+`˙`, `⊃`, `⟜`, and `⊸` are especially important because they replace many manual stack shuffles. For example, `˙× 9` means "multiply 9 by itself", and `⊃(/+|⧻)` means "send the same array to both sum and length." If you find yourself wanting to duplicate or swap values, first ask whether one of these expresses the data flow more clearly.
+
+## Exercise 1: Stack Selection
+
+Run each line and explain which values survive:
+
+```uiua
+[∘ 5]
+[◌ 1 2]
+[⊙+ 1 2 3]
+[⋅+ 1 2 3]
+```
+
+## Exercise 2: Build a Mean
+
+Use `⊃`, `|`, `˜`, `/`, `+`, and `⧻` to write `Mean`.
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+Mean ← ˜÷⊃(/+|⧻)
+Mean [4 8 15 16 23 42]
+```
+
+</details>

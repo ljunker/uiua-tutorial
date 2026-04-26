@@ -1,0 +1,85 @@
+.docname {D. Selection and Searching}
+.include {docs}
+
+These glyphs are how you cut, join, filter, search, and index data.
+
+Selection glyphs are where array programming starts to feel practical. You can sort, take the first few rows, filter with a mask, find positions, and reconstruct arrays without writing explicit loops.
+
+Keep the distinction between `⊏ select` and `⊡ pick` clear. `⊏` selects rows and can return many rows. `⊡` indexes into an array and is the tool you reach for when an index describes a position inside the structure.
+
+## Joining, Indexing, Reshaping Rows
+
+| Glyph | Name | Meaning | Example |
+| --- | --- | --- | --- |
+| `⊟` | couple | make two rows | `⊟ [1 2] [3 4]` |
+| `⊂` | join | append arrays | `⊂ [1 2] [3 4]` |
+| `⊏` | select | select rows by indices | `⊏ 2_0 [8 3 9]` |
+| `⊡` | pick | pick one row or element | `⊡ 1 [8 3 9]` |
+| `↙` | take | take rows | `↙ 3 [8 3 9 2 0]` |
+| `↘` | drop | drop rows | `↘ 3 [8 3 9 2 0]` |
+| `↻` | rotate | rotate rows | `↻ 2 [8 3 9 2 0]` |
+| `⤸` | orient | reorder axes | `⤸ 1 °△2_3_4` |
+| `▽` | keep | filter or repeat rows | `▽ 1_0_1 "abc"` |
+
+`▽ keep` is the workhorse for filtering. It takes counts or a mask, then keeps that many copies of each row. With a boolean mask, `1` means keep and `0` means discard. This is why comparison glyphs are so useful: they produce masks that can feed directly into `▽`.
+
+`↙ take`, `↘ drop`, and `↻ rotate` are about position rather than content. Use them after sorting or when the row order already has meaning, such as time-series data.
+
+## Searching and Set-Like Work
+
+| Glyph | Name | Meaning | Example |
+| --- | --- | --- | --- |
+| `⊚` | where | indices of nonzero values | `⊚ [0 1 0 1]` |
+| `◴` | deduplicate | remove duplicate rows | `◴ "banana"` |
+| `⊛` | classify | classify unique rows | `⊛ "banana"` |
+| `⧆` | occurrences | count prior occurrences | `⧆ "banana"` |
+| `◰` | unique | first occurrence mask, deprecated | `◰ "banana"` |
+| `≍` | match | exact shape/type match | `≍ 1_2_3 [1 2 3]` |
+| `⌕` | find | mark start of occurrences | `⌕ "ab" "abracadabra"` |
+| `⦷` | mask | mark full occurrences | `⦷ "ab" "abracadabra"` |
+| `∊` | memberof | membership test | `∊ [1 2 3] [2 4]` |
+| `⨂` | indexin | first index in searched array | `⨂ [1 2 3] 2` |
+| `⊗` | indexof | old index direction, deprecated | `⊗ 2 [1 2 3]` |
+| `⊥` | base | base digits | `⊥ 10 123` |
+| `⋯` | bits | binary digits | `⋯ 27` |
+
+The search glyphs split into two families. `⌕`, `⦷`, `∊`, and `⨂` ask questions about membership or location. `◴`, `⊛`, and `⧆` summarize repeated rows. For text, these work on characters; for matrices, they work on rows.
+
+## Exercise 1: Top Three
+
+From `[12 7 19 4 8]`, sort and take the largest three values.
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+↙3 ⇌⍆ [12 7 19 4 8]
+```
+
+</details>
+
+## Exercise 2: Filter Passing Scores
+
+Keep scores at least `25` from `[18 22 31 25 29 40]`.
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+▽⊸≥25 [18 22 31 25 29 40]
+```
+
+</details>
+
+## Exercise 3: Deduplicate a String
+
+Return each letter from `"mississippi"` once, preserving first appearance order.
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+◴ "mississippi"
+```
+
+</details>

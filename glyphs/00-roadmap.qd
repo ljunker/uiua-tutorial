@@ -1,0 +1,52 @@
+.docname {Glyph Roadmap}
+.include {docs}
+
+This curriculum orders Uiua glyphs by learning difficulty. "Glyph" here means the visual symbols you type in Uiua source: primitive glyphs, syntax symbols, and common subscript markers.
+
+.box {How to use this section} type:{note}
+    Do not memorize the entire table before writing code. Work one difficulty band at a time, run the drills, then return to the table when a glyph appears in code.
+
+## Difficulty Bands
+
+The bands are not official Uiua categories. They are a teaching order: first syntax, then stack motion, then scalar math, then arrays, then modifiers, and only later the glyphs used for advanced tacit composition.
+
+When a band contains many glyphs, do not treat it as a memorization assignment. Read the band, run two or three examples, then use the exercises to force recall. The goal is recognition first and fluency later.
+
+| Band | Learn when | Glyphs |
+| --- | --- | --- |
+| 0. Syntax | Before primitives | `← [] {} () "" _ @ $ # \| & ! ⌞ ⌟ ₀..₉ ₋` |
+| 1. Starter stack | First day | `∘ ◌ ˙ ˜ ⊙ ⋅ ⟜ ⊸ ⊃ ⊓ ?` |
+| 2. Basic scalar math | First arrays | `+ - × ÷ ¯ √ ⌊ ⌈ ⁅ ↧ ↥ = ≠ < ≤ > ≥ ¬ ± ⌵ ◿` |
+| 3. Constants and numeric tools | Math practice | `η π τ ∞ ⨪ ₑ ∿ ⁿ ₙ ∠ ℂ ⚂` |
+| 4. Array basics | Shape thinking | `⧻ △ ⇡ ↯ ⊢ ⊣ ⇌ ♭ ¤ ⍉ ⍆ ⍏ ⍖ □ ⋕` |
+| 5. Array selection and search | Real data tasks | `⊟ ⊂ ⊏ ⊡ ↙ ↘ ↻ ⤸ ▽ ⊚ ◴ ⊛ ⧆ ◰ ≍ ⌕ ⦷ ∊ ⨂ ⊗ ⊥ ⋯` |
+| 6. Core modifiers | Most practical Uiua | `/ \ ∧ ≡ ⊞ ⍥ ⧈ ⊕ ⊜ ◇ ⬚ ⨬` |
+| 7. Argument modifiers | Tacit composition | `∩ ⤙ ⤚ ◡ ⍚ ⧅ ⧋ ° ⌝ ⍜ ⌅ ⍢` |
+| 8. Error and testing | Robust scripts | `⍣ ⍩ ⍤` |
+| 9. Advanced, deprecated, or experimental | Later | `. : ◠ ∪ 𝄐 ☇ ◫ ∵ ∨ ⩜ ∂ ∫` |
+
+## Deprecated Glyphs
+
+These exist in Uiua 0.18.1, but should mostly be recognized rather than used in new beginner code:
+
+| Glyph | Name | Prefer |
+| --- | --- | --- |
+| `.` | duplicate | `˙`, `⊸`, or `⟜∘` depending on the pattern |
+| `:` | flip | `˜` |
+| `ₙ` | logarithm | subscripted `ₑ` or `°˜ⁿ` patterns |
+| `☇` | rerank | subscripted `♭` or shape-based code |
+| `◫` | windows | `⧈` |
+| `∵` | each | `≡` or pervasive functions |
+| `◰` | unique | `⧆₁` where applicable |
+| `⊗` | indexof | `˜⨂` |
+| `𝄐` | old reach | `∪` |
+
+Deprecated does not mean "broken." It means the language has a newer spelling or a better idiom. This tutorial keeps deprecated glyphs in the roadmap because you will see them in older examples, but the exercise solutions avoid relying on them.
+
+## Exercise: Personal Glyph Sheet
+
+Create a local file named `glyph-notes.md`. For each band, write:
+
+1. Three glyphs you can already use.
+2. Three glyphs you can recognize but not yet use.
+3. One practical example you want to solve with that band.

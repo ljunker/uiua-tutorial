@@ -1,0 +1,102 @@
+.docname {1. First Contact}
+.include {docs}
+
+Uiua programs are read from right to left. Values are pushed onto a stack, and functions consume values from that stack.
+
+If words like "stack", "monadic", or "dyadic" are new, read [Core Concepts](00-core-concepts.qd) first. This page focuses on using those ideas with tiny runnable programs.
+
+```uiua
++ 2 3
+```
+
+Output:
+
+```txt
+5
+```
+
+The expression means: push `3`, push `2`, then apply `+`.
+
+`+` is dyadic, so it consumes two values. The result replaces those two consumed values on the stack.
+
+## Run Code
+
+Use `uiua eval` for one-off expressions:
+
+```sh
+uiua eval '+ 2 3'
+```
+
+Use `uiua run` for files:
+
+```sh
+uiua run examples/01_first_contact.ua
+```
+
+## Stack Results
+
+If a program leaves multiple values on the stack, Uiua prints them. This is useful while learning.
+
+```uiua
++ 2 3
+× 6 7
+```
+
+This leaves two results: `5` and `42`.
+
+## Exercise 1: Predict the Stack
+
+Before running it, write down the two values you expect:
+
+```uiua
+- 4 10
+÷ 2 10
+```
+
+Then run:
+
+```sh
+uiua eval '- 4 10
+÷ 2 10'
+```
+
+<details>
+<summary>Solution</summary>
+
+```txt
+6
+5
+```
+
+`- 4 10` computes `10 - 4`. `÷ 2 10` computes `10 / 2`; in Uiua, many dyadic functions read naturally as the right value being transformed by the left value.
+
+</details>
+
+## Exercise 2: Convert a Formula
+
+Write Uiua for this arithmetic:
+
+```txt
+(8 + 4) * 3
+```
+
+Hint: build the inner addition first.
+
+<details>
+<summary>Solution</summary>
+
+```uiua
+× 3 + 8 4
+```
+
+</details>
+
+## Exercise 3: Make a File
+
+Create a temporary file named `scratch.ua` and put three arithmetic expressions in it. Run it with:
+
+```sh
+uiua run scratch.ua
+```
+
+The goal is to get comfortable with the edit-run loop.
