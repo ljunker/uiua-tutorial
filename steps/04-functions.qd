@@ -67,29 +67,23 @@ Output:
 
 Write a function `Discount10` that takes a price and returns 90% of it.
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    Discount10 ← ×0.9
+    Discount10 80
+    ```
 
-```uiua
-Discount10 ← ×0.9
-Discount10 80
-```
-
-</details>
 
 ## Exercise 2: Celsius Batch
 
 Use `Fahrenheit` on the vector `0_10_20_30`.
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    Fahrenheit ← +32×1.8
+    Fahrenheit 0_10_20_30
+    ```
 
-```uiua
-Fahrenheit ← +32×1.8
-Fahrenheit 0_10_20_30
-```
-
-</details>
 
 ## Exercise 3: Mean of Scores
 
@@ -99,26 +93,20 @@ Compute the mean of:
 [18 22 31 25 29 40]
 ```
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    Mean ← ˜÷⊃(/+|⧻)
+    Mean [18 22 31 25 29 40]
+    ```
 
-```uiua
-Mean ← ˜÷⊃(/+|⧻)
-Mean [18 22 31 25 29 40]
-```
-
-</details>
 
 ## Exercise 4: Squares
 
 Use `Square` on the vector `1_2_3_4_5`.
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    Square ← ˙×
+    Square 1_2_3_4_5
+    ```
 
-```uiua
-Square ← ˙×
-Square 1_2_3_4_5
-```
-
-</details>

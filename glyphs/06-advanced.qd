@@ -53,27 +53,21 @@ Parse a list of boxed strings, returning `0` for values that fail:
 {"12" "x" "7"}
 ```
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    ≡⍣⋕0 {"12" "x" "7"}
+    ```
 
-```uiua
-≡⍣⋕0 {"12" "x" "7"}
-```
-
-</details>
 
 ## Exercise 2: Modify Through a Transformation
 
 Round `π` to three decimal places using `⍜`, `×`, and `⁅`.
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    ⍜×⁅ 1000 π
+    ```
 
-```uiua
-⍜×⁅ 1000 π
-```
-
-</details>
 
 ## Exercise 3: Recognize Experimental Code
 
@@ -85,9 +79,6 @@ Read this code without changing it:
 
 What should it represent?
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    `˙×` squares its input. `∂` asks for the derivative. At `5`, the derivative of `x²` is `10`.
 
-`˙×` squares its input. `∂` asks for the derivative. At `5`, the derivative of `x²` is `10`.
-
-</details>

@@ -103,14 +103,11 @@ For each glyph, decide whether it is niladic, monadic, dyadic, or a modifier:
 π  √  +  ↯  /  ≡
 ```
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    - `π` is niladic: it produces a value.
+    - `√` is monadic: it takes one number or array.
+    - `+` is dyadic: it adds two values.
+    - `↯` is dyadic: it reshapes an array using a shape.
+    - `/` is a modifier: it takes a function such as `+`.
+    - `≡` is a modifier: it takes a function and applies it to rows.
 
-- `π` is niladic: it produces a value.
-- `√` is monadic: it takes one number or array.
-- `+` is dyadic: it adds two values.
-- `↯` is dyadic: it reshapes an array using a shape.
-- `/` is a modifier: it takes a function such as `+`.
-- `≡` is a modifier: it takes a function and applies it to rows.
-
-</details>

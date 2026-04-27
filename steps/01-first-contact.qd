@@ -60,17 +60,14 @@ uiua eval '- 4 10
 ÷ 2 10'
 ```
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```txt
+    6
+    5
+    ```
 
-```txt
-6
-5
-```
+    `- 4 10` computes `10 - 4`. `÷ 2 10` computes `10 / 2`; in Uiua, many dyadic functions read naturally as the right value being transformed by the left value.
 
-`- 4 10` computes `10 - 4`. `÷ 2 10` computes `10 / 2`; in Uiua, many dyadic functions read naturally as the right value being transformed by the left value.
-
-</details>
 
 ## Exercise 2: Convert a Formula
 
@@ -82,14 +79,11 @@ Write Uiua for this arithmetic:
 
 Hint: build the inner addition first.
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    × 3 + 8 4
+    ```
 
-```uiua
-× 3 + 8 4
-```
-
-</details>
 
 ## Exercise 3: Make a File
 

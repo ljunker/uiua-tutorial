@@ -49,37 +49,28 @@ The search glyphs split into two families. `⌕`, `⦷`, `∊`, and `⨂` ask qu
 
 From `[12 7 19 4 8]`, sort and take the largest three values.
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    ↙3 ⇌⍆ [12 7 19 4 8]
+    ```
 
-```uiua
-↙3 ⇌⍆ [12 7 19 4 8]
-```
-
-</details>
 
 ## Exercise 2: Filter Passing Scores
 
 Keep scores at least `25` from `[18 22 31 25 29 40]`.
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    ▽⊸≥25 [18 22 31 25 29 40]
+    ```
 
-```uiua
-▽⊸≥25 [18 22 31 25 29 40]
-```
-
-</details>
 
 ## Exercise 3: Deduplicate a String
 
 Return each letter from `"mississippi"` once, preserving first appearance order.
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    ◴ "mississippi"
+    ```
 
-```uiua
-◴ "mississippi"
-```
-
-</details>

@@ -48,14 +48,11 @@ Create a vector for the days `1` through `7`.
 
 Hint: `⇡7` starts at `0`, so shift it.
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    +1 ⇡7
+    ```
 
-```uiua
-+1 ⇡7
-```
-
-</details>
 
 ## Exercise 2: Make a 3-by-4 Grid
 
@@ -67,14 +64,11 @@ Build this matrix from the numbers `0` through `11`:
 8 9 10 11
 ```
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    ↯ 3_4 ⇡12
+    ```
 
-```uiua
-↯ 3_4 ⇡12
-```
-
-</details>
 
 ## Exercise 3: Inspect Before You Transform
 
@@ -85,9 +79,6 @@ Run both expressions and explain the difference:
 △ ↯ 3_4 ⇡12
 ```
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    `⇡12` is a vector, so its shape is `[12]`. `↯ 3_4 ⇡12` is a matrix, so its shape is `[3 4]`.
 
-`⇡12` is a vector, so its shape is `[12]`. `↯ 3_4 ⇡12` is a matrix, so its shape is `[3 4]`.
-
-</details>

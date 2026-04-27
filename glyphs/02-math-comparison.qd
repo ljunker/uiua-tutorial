@@ -66,37 +66,28 @@ The constants are ordinary values, so they can participate in expressions withou
 
 Prices are `[30 50 80 120]`. Return prices after 15% off.
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    ×0.85 [30 50 80 120]
+    ```
 
-```uiua
-×0.85 [30 50 80 120]
-```
-
-</details>
 
 ## Exercise 2: Threshold Mask
 
 For scores `[18 22 31 25 29 40]`, return a mask for scores at least `25`.
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    ≥25 [18 22 31 25 29 40]
+    ```
 
-```uiua
-≥25 [18 22 31 25 29 40]
-```
-
-</details>
 
 ## Exercise 3: Clamp with Min and Max
 
 Clamp `[¯5 3 12 27]` into the range `0..20`.
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    ↧20 ↥0 [¯5 3 12 27]
+    ```
 
-```uiua
-↧20 ↥0 [¯5 3 12 27]
-```
-
-</details>

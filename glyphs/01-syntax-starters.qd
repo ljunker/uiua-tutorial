@@ -12,8 +12,8 @@ Syntax glyphs do not all behave like functions. Some create values (`[]`, `{}`, 
 | `←` | bind a name | 0 | `Double ← ×2` |
 | `[]` | regular array notation | 0 | `[1 2 3]` |
 | `{}` | box array notation for mixed or nested values | 3 | `{1 "two" 3_4}` |
-| `()` | group a function expression | 1 | `Mean ← ˜÷⊃(/+|⧻)` |
-| `|` | separate functions in a function pack | 3 | `⊃(/+|⧻)` |
+| `()` | group a function expression | 1 | `Mean ← ˜÷⊃(/+\|⧻)` |
+| `\|` | separate functions in a function pack | 3 | `⊃(/+\|⧻)` |
 | `""` | string literal | 0 | `"Uiua"` |
 | `_` | strand notation | 0 | `1_2_3` |
 | `@` | character literal | 1 | `@a` |
@@ -40,7 +40,7 @@ These glyphs are about moving or reusing arguments. They are powerful, but they 
 | `⋅` | gap | discards one argument before calling a function | `⋅+ 1 2 3` |
 | `⟜` | on | keeps the first argument before outputs | `÷⟜⇡ 5` |
 | `⊸` | by | keeps the last argument after outputs | `⊸+ 2 5` |
-| `⊃` | fork | calls two functions on the same input | `⊃(/+|⧻) [1 2 3]` |
+| `⊃` | fork | calls two functions on the same input | `⊃(/+\|⧻) [1 2 3]` |
 | `⊓` | bracket | calls two functions on separate inputs | `⊓+× 1 2 3 4` |
 | `?` | args | debug-print stack values | `1 2 ? +` |
 
@@ -61,12 +61,8 @@ Run each line and explain which values survive:
 
 Use `⊃`, `|`, `˜`, `/`, `+`, and `⧻` to write `Mean`.
 
-<details>
-<summary>Solution</summary>
-
-```uiua
-Mean ← ˜÷⊃(/+|⧻)
-Mean [4 8 15 16 23 42]
-```
-
-</details>
+.collapse {Solution}
+    ```uiua
+    Mean ← ˜÷⊃(/+|⧻)
+    Mean [4 8 15 16 23 42]
+    ```

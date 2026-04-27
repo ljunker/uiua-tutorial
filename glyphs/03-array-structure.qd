@@ -43,29 +43,23 @@ The best habit is to inspect shapes constantly. If an expression does not make s
 
 Create a 5-by-3 matrix from `0` through `14`, then return its shape.
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    △ ↯5_3 ⇡15
+    ```
 
-```uiua
-△ ↯5_3 ⇡15
-```
-
-</details>
 
 ## Exercise 2: Sort by Data
 
 Sort `[12 7 19 4 8]`, then return the first and last values.
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    Sorted ← ⍆ [12 7 19 4 8]
+    ⊢ Sorted
+    ⊣ Sorted
+    ```
 
-```uiua
-Sorted ← ⍆ [12 7 19 4 8]
-⊢ Sorted
-⊣ Sorted
-```
-
-</details>
 
 ## Exercise 3: Parse Numbers
 
@@ -75,11 +69,8 @@ Convert these boxed strings to numbers:
 {"12" "7" "19"}
 ```
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    ⋕ {"12" "7" "19"}
+    ```
 
-```uiua
-⋕ {"12" "7" "19"}
-```
-
-</details>

@@ -69,19 +69,16 @@ Temps ← [14 16 13 19 21 18 17]
 
 Return the minimum, maximum, and mean.
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    Temps ← [14 16 13 19 21 18 17]
+    Mean ← ˜÷⊃(/+|⧻)
 
-```uiua
-Temps ← [14 16 13 19 21 18 17]
-Mean ← ˜÷⊃(/+|⧻)
+    /↧ Temps
+    /↥ Temps
+    Mean Temps
+    ```
 
-/↧ Temps
-/↥ Temps
-Mean Temps
-```
-
-</details>
 
 ## Exercise 2: Normalize Sales
 
@@ -93,16 +90,13 @@ Sales ← [120 90 150 180 160]
 
 Return each value as a fraction of the best week.
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    Sales ← [120 90 150 180 160]
+    Normalize ← ˜÷⟜(/↥)
+    Normalize Sales
+    ```
 
-```uiua
-Sales ← [120 90 150 180 160]
-Normalize ← ˜÷⟜(/↥)
-Normalize Sales
-```
-
-</details>
 
 ## Exercise 3: Weekly Totals Matrix
 
@@ -114,25 +108,19 @@ SalesByWeek ← [10_12_9 8_15_11 13_14_10 9_9_12]
 
 Return total sales for each week.
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    SalesByWeek ← [10_12_9 8_15_11 13_14_10 9_9_12]
+    ≡/+ SalesByWeek
+    ```
 
-```uiua
-SalesByWeek ← [10_12_9 8_15_11 13_14_10 9_9_12]
-≡/+ SalesByWeek
-```
-
-</details>
 
 ## Exercise 4: Product Multipliers
 
 Create a table that shows every combination of product counts `1` through `4` and prices `5`, `10`, and `20`.
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    ⊞× +1⇡4 5_10_20
+    ```
 
-```uiua
-⊞× +1⇡4 5_10_20
-```
-
-</details>

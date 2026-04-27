@@ -67,27 +67,21 @@ Given daily expenses:
 
 Write code that returns the total.
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    /+ [12 7 19 4 8]
+    ```
 
-```uiua
-/+ [12 7 19 4 8]
-```
-
-</details>
 
 ## Exercise 2: Running Total
 
 Using the same expenses, produce a running total.
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    \+ [12 7 19 4 8]
+    ```
 
-```uiua
-\+ [12 7 19 4 8]
-```
-
-</details>
 
 ## Exercise 3: Row Totals
 
@@ -99,24 +93,18 @@ Each row is one week of sales:
 
 Return the total for each week.
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    ≡/+ [10_12_9 8_15_11 13_14_10]
+    ```
 
-```uiua
-≡/+ [10_12_9 8_15_11 13_14_10]
-```
-
-</details>
 
 ## Exercise 4: Multiplication Table
 
 Create a 5-by-5 multiplication table for `1` through `5`.
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    ⊞× +1⇡5 +1⇡5
+    ```
 
-```uiua
-⊞× +1⇡5 +1⇡5
-```
-
-</details>

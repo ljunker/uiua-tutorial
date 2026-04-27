@@ -43,8 +43,8 @@ Grouping often creates uneven groups. Uneven groups do not fit in a normal recta
 | Glyph | Name | Meaning | Example |
 | --- | --- | --- | --- |
 | `⬚` | fill | provide fill value | `⬚0↙ 5 [1 2]` |
-| `⨬` | switch | choose function by index | `⨬(+|-|×) 2 3 5` |
-| `⍢` | do | repeat while condition holds | `⍢(×2|<1000) 1` |
+| `⨬` | switch | choose function by index | `⨬(+\|-\|×) 2 3 5` |
+| `⍢` | do | repeat while condition holds | `⍢(×2\|<1000) 1` |
 
 `⬚ fill` is not only a default value. It temporarily changes how a function handles shape mismatch or missing data. For beginner code, use it when an otherwise sensible expression fails because one row is shorter, one index is missing, or one take operation asks for more data than exists.
 
@@ -52,37 +52,27 @@ Grouping often creates uneven groups. Uneven groups do not fit in a normal recta
 
 Starting balance is `100`. Transactions are `[20 ¯5 ¯12 30]`. Return running balances.
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    \+ [100 20 ¯5 ¯12 30]
+    ```
 
-```uiua
-\+ [100 20 ¯5 ¯12 30]
-```
-
-</details>
 
 ## Exercise 2: Moving Sum
 
 For `[1 2 3 4 5 6]`, return the sum of each 3-item window.
 
-<details>
-<summary>Solution</summary>
+.collapse {Solution}
+    ```uiua
+    ⧈/+ 3 [1 2 3 4 5 6]
+    ```
 
-```uiua
-⧈/+ 3 [1 2 3 4 5 6]
-```
-
-</details>
 
 ## Exercise 3: Group Totals
 
 Group values `[10 20 30 40 50]` by keys `[0 1 0 1 0]` and sum each group.
 
-<details>
-<summary>Solution</summary>
-
-```uiua
-⊕/+ [0 1 0 1 0] [10 20 30 40 50]
-```
-
-</details>
+.collapse {Solution}
+    ```uiua
+    ⊕/+ [0 1 0 1 0] [10 20 30 40 50]
+    ```
