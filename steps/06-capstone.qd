@@ -3,6 +3,8 @@
 
 The capstone is a small report over a week of shop data. Try to solve it in `scratch.ua` before opening the solution.
 
+Work in small checkpoints. Do not try to write the final program in one pass. After each line, run the file and confirm that the shape and values still match the task.
+
 ## Data
 
 Rows are days. Columns are products.
@@ -10,6 +12,22 @@ Rows are days. Columns are products.
 ```uiua
 Sales ← [12_9_4 15_8_7 10_11_6 18_12_9 14_10_8 20_15_11 16_13_10]
 Prices ← 5_8_12
+```
+
+`Sales` is a 7-by-3 matrix: seven days, three products per day. `Prices` is a three-value vector. Because each sales row has three product counts, it lines up with the three prices.
+
+You can inspect this before solving:
+
+```uiua
+△ Sales
+△ Prices
+```
+
+Expected shapes:
+
+```txt
+[7 3]
+[3]
 ```
 
 ## Tasks
@@ -20,6 +38,13 @@ Prices ← 5_8_12
 4. Compute the running daily revenue.
 5. Compute the mean daily revenue.
 
+Treat these as a pipeline:
+
+1. Start with product counts.
+2. Multiply counts by prices to get product revenue.
+3. Sum each row to get daily revenue.
+4. Summarize that daily vector in several ways.
+
 ## Hints
 
 - Array multiplication works elementwise.
@@ -27,6 +52,16 @@ Prices ← 5_8_12
 - `/+` sums a whole vector.
 - `\+` gives running totals.
 - Reuse `Mean ← ˜÷⊃(/+|⧻)`.
+
+If a result is surprising, check its shape with `△`. Product revenue should still be shaped like the original sales matrix. Daily revenue should be a vector with seven values.
+
+## Suggested Build Order
+
+1. Bind `Sales` and `Prices`.
+2. Run `×¤Prices Sales` and confirm that each product count is multiplied by the matching price.
+3. Bind that expression as `RevenueByProduct`.
+4. Apply `≡/+` to the revenue matrix and confirm there is one number per day.
+5. Only then add weekly total, running total, and mean.
 
 ## Solution
 
@@ -68,4 +103,3 @@ Prices ← 5_8_12
     Normalize Daily
     Centered Daily
     ```
-

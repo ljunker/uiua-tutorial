@@ -3,11 +3,15 @@
 
 This step combines the pieces into small data-analysis tasks.
 
+The goal is not to make the shortest possible code. The goal is to recognize small reusable patterns: sum a vector, count values, reduce to a minimum or maximum, normalize by a reference value, and apply a row operation to a matrix.
+
 We will use this score vector:
 
 ```uiua
 Scores ← [18 22 31 25 29 40]
 ```
+
+Keep the data named while exploring. Named data makes it easy to run one expression at a time without retyping the vector.
 
 ## Total, Count, and Mean
 
@@ -20,6 +24,14 @@ Mean ← ˜÷⊃(/+|⧻)
 Mean Scores
 ```
 
+Read these as three separate questions:
+
+- `/+ Scores`: what is the total?
+- `⧻ Scores`: how many scores are there?
+- `Mean Scores`: what is total divided by count?
+
+When debugging a composed function such as `Mean`, run its ingredients separately first.
+
 ## Minimum and Maximum
 
 `↧` and `↥` compare two arrays. Reduce with them to get the minimum or maximum.
@@ -28,6 +40,8 @@ Mean Scores
 /↧ Scores
 /↥ Scores
 ```
+
+`/↧` keeps reducing the vector until only the smallest value remains. `/↥` does the same for the largest value. The pattern is the same as `/+`; only the combining function changes.
 
 ## Normalize by Maximum
 
@@ -44,6 +58,8 @@ Output:
 [0.45 0.55 0.775 0.625 0.725 1]
 ```
 
+The best score becomes `1` because it is divided by itself. All other scores become smaller fractions. This is a common data-cleaning step when values need to be compared on a shared scale.
+
 ## Center Around the Mean
 
 This subtracts the mean from every score:
@@ -59,6 +75,8 @@ Output:
 [¯9.5 ¯5.5 3.5 ¯2.5 1.5 12.5]
 ```
 
+Negative numbers in Uiua use `¯`, not a leading hyphen. A centered value below zero is below the mean; a value above zero is above the mean.
+
 ## Exercise 1: Temperature Summary
 
 Given temperatures:
@@ -68,6 +86,8 @@ Temps ← [14 16 13 19 21 18 17]
 ```
 
 Return the minimum, maximum, and mean.
+
+Solve this as three outputs. Bind `Temps`, define `Mean`, then put one summary expression per line. While learning, multiple stack results are clearer than one compressed expression.
 
 .collapse {Solution}
     ```uiua
@@ -90,6 +110,8 @@ Sales ← [120 90 150 180 160]
 
 Return each value as a fraction of the best week.
 
+The "best week" is the maximum value, so reuse the normalize pattern from the lesson. Run `/↥ Sales` by itself first if you want to confirm the denominator.
+
 .collapse {Solution}
     ```uiua
     Sales ← [120 90 150 180 160]
@@ -108,6 +130,8 @@ SalesByWeek ← [10_12_9 8_15_11 13_14_10 9_9_12]
 
 Return total sales for each week.
 
+This is a row operation. `/+ SalesByWeek` would collapse the whole matrix too far for this question. Use `≡/+` so each week is summed independently.
+
 .collapse {Solution}
     ```uiua
     SalesByWeek ← [10_12_9 8_15_11 13_14_10 9_9_12]
@@ -119,8 +143,9 @@ Return total sales for each week.
 
 Create a table that shows every combination of product counts `1` through `4` and prices `5`, `10`, and `20`.
 
+This asks for all pairs, so use table `⊞`. The counts are `+1⇡4`; the prices are already a vector. Multiplication is the operation at each crossing.
+
 .collapse {Solution}
     ```uiua
     ⊞× +1⇡4 5_10_20
     ```
-

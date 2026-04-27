@@ -3,6 +3,8 @@
 
 Uiua is an array language. Scalars, vectors, matrices, and higher-dimensional values are all arrays.
 
+That means the same glyphs usually work on one value or many values. You can add `1` to a single number, and you can also add `1` to every number in a vector. This is one reason Uiua programs can stay short without explicit loops.
+
 ## Vectors
 
 Use brackets for arrays:
@@ -15,6 +17,20 @@ Short arrays can also use strand notation with underscores:
 
 ```uiua
 1_2_3_4_5
+```
+
+Both forms create a vector, which is a one-dimensional array. Use brackets when you want the shape to be visually obvious, and use underscores for compact data inside larger examples.
+
+Try this to see arithmetic apply across the whole vector:
+
+```uiua
++10 [1 2 3 4 5]
+```
+
+Output:
+
+```txt
+[11 12 13 14 15]
 ```
 
 ## Ranges
@@ -31,6 +47,8 @@ Output:
 [0 1 2 3 4 5 6 7 8 9]
 ```
 
+The "not including" part matters. `⇡10` has ten numbers because it starts at zero. If you want `1` through `10`, shift the range with `+1 ⇡10`.
+
 ## Shape and Reshape
 
 `△` gets an array's shape. `↯` reshapes data.
@@ -42,11 +60,21 @@ Output:
 
 The first expression makes a 2-by-3 matrix. The second returns its shape, `[2 3]`.
 
+Read `↯ 2_3 ⇡6` from right to left:
+
+1. `⇡6` creates `[0 1 2 3 4 5]`.
+2. `2_3` describes the target shape: two rows and three columns.
+3. `↯` uses that shape to arrange the six values.
+
+The number of cells must match the shape. A `2_3` shape needs six values. A `3_4` shape needs twelve values.
+
 ## Exercise 1: Make a Calendar Row
 
 Create a vector for the days `1` through `7`.
 
 Hint: `⇡7` starts at `0`, so shift it.
+
+Start by running `⇡7` and looking at the output. Then add one to every value. You do not need a loop because `+1` is pervasive: it applies to each number in the vector.
 
 .collapse {Solution}
     ```uiua
@@ -64,6 +92,8 @@ Build this matrix from the numbers `0` through `11`:
 8 9 10 11
 ```
 
+First count the rows and columns in the target. There are three rows and four columns, so the shape is `3_4`. Then create twelve values with `⇡12`, because the matrix has `3 × 4` cells.
+
 .collapse {Solution}
     ```uiua
     ↯ 3_4 ⇡12
@@ -79,6 +109,7 @@ Run both expressions and explain the difference:
 △ ↯ 3_4 ⇡12
 ```
 
+The values are the same numbers before and after reshaping, but the shape changes how Uiua sees the data. A vector has one axis; a matrix has two axes. Later modifiers such as `≡` use those axes to decide what counts as a row.
+
 .collapse {Solution}
     `⇡12` is a vector, so its shape is `[12]`. `↯ 3_4 ⇡12` is a matrix, so its shape is `[3 4]`.
-

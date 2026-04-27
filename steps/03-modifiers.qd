@@ -3,6 +3,8 @@
 
 Modifiers change how another function is applied. They are central to practical Uiua.
 
+A modifier is not usually useful by itself. It needs a function next to it. For example, `/` plus `+` becomes `/+`, which means "reduce with addition." The modifier decides the pattern; the function decides the operation.
+
 ## Reduce
 
 `/` reduces an array with a dyadic function. A dyadic function takes two arguments, so `/+` can repeatedly combine neighboring values: first combine two rows, then combine that result with the next row, and so on until one result remains.
@@ -19,6 +21,14 @@ Output:
 
 Read it as "reduce with plus".
 
+For a vector, the idea is:
+
+1. Combine `1` and `2` with `+` to get `3`.
+2. Combine that result with `3` to get `6`.
+3. Continue until the array has one value.
+
+You can change the function after `/`. For example, `/× [1 2 3 4]` multiplies all values together.
+
 ## Scan
 
 `\` is like reduce, but keeps intermediate results.
@@ -32,6 +42,8 @@ Output:
 ```txt
 [1 3 6 10 15]
 ```
+
+Scan is useful whenever the history matters. A running bank balance, cumulative distance, or progress total is usually a scan.
 
 ## Rows
 
@@ -47,6 +59,8 @@ Output:
 [6 15 24]
 ```
 
+Here the input is a matrix with three rows. The function `/+` sums one row. The modifier `≡` repeats that row-sum function for every row and collects the three results.
+
 ## Table
 
 `⊞` applies a function to every pair of rows from two arrays.
@@ -56,6 +70,8 @@ Output:
 ```
 
 This creates a multiplication table.
+
+Think of the left vector as row labels and the right vector as column labels. `⊞×` fills every crossing with the product of the row value and the column value.
 
 ## Exercise 1: Sum Expenses
 
@@ -67,6 +83,8 @@ Given daily expenses:
 
 Write code that returns the total.
 
+The target is one number, so reduce is the right pattern. The operation for combining expenses is addition, so place `+` after `/`.
+
 .collapse {Solution}
     ```uiua
     /+ [12 7 19 4 8]
@@ -76,6 +94,8 @@ Write code that returns the total.
 ## Exercise 2: Running Total
 
 Using the same expenses, produce a running total.
+
+This is almost the same as Exercise 1, but you need every intermediate total instead of only the final total. Keep the `+` operation and swap reduce `/` for scan `\`.
 
 .collapse {Solution}
     ```uiua
@@ -93,6 +113,8 @@ Each row is one week of sales:
 
 Return the total for each week.
 
+Each row is one week, so first solve one row with `/+`. Then apply that one-row solution to every row with `≡`.
+
 .collapse {Solution}
     ```uiua
     ≡/+ [10_12_9 8_15_11 13_14_10]
@@ -103,8 +125,9 @@ Return the total for each week.
 
 Create a 5-by-5 multiplication table for `1` through `5`.
 
+Build the labels first: `+1⇡5` gives `1_2_3_4_5`. A square multiplication table uses that same vector for rows and columns. Then `⊞×` computes every pairwise product.
+
 .collapse {Solution}
     ```uiua
     ⊞× +1⇡5 +1⇡5
     ```
-

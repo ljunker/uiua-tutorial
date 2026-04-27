@@ -3,6 +3,8 @@
 
 Once an expression works, give it a name. Uiua uses `←` for bindings.
 
+Naming is useful while learning because it lets you test a small idea once and then reuse it. A name can stand for a value, a function, or a composed pipeline of functions.
+
 ```uiua
 Double ← ×2
 Double 21
@@ -12,6 +14,18 @@ Output:
 
 ```txt
 42
+```
+
+`Double ← ×2` binds the name `Double` to the function "multiply by 2." The next line calls that function with `21`. If the body after `←` works on a single value, try it on a vector too:
+
+```uiua
+Double 1_2_3
+```
+
+Output:
+
+```txt
+[2 4 6]
 ```
 
 ## Composition
@@ -31,6 +45,8 @@ Output:
 
 Read from right to left: multiply by `1.8`, then add `32`.
 
+When composing, write and test the smallest part first. For `Fahrenheit`, test `×1.8 20`, then test `+32 ×1.8 20`, then bind the working pipeline to a name.
+
 ## Fork
 
 `⊃` calls two functions on the same input. This mean function computes both the sum and the length of the array, then divides sum by length.
@@ -48,6 +64,15 @@ Output:
 
 `˜÷` means "divide with the arguments swapped", which gives `sum / length`.
 
+Break the function into pieces:
+
+- `/+` computes the sum.
+- `⧻` computes the length.
+- `⊃(/+|⧻)` runs both on the same input.
+- `˜÷` divides the sum by the length in the order humans usually say it.
+
+This is dense at first. It is fine to keep `Mean` as a named helper and use it without memorizing every glyph immediately.
+
 ## Self
 
 `˙` calls a function with the same value as all of its arguments.
@@ -63,9 +88,13 @@ Output:
 81
 ```
 
+`×` needs two arguments. `˙` supplies the same input to both sides, so `Square 9` becomes `× 9 9`.
+
 ## Exercise 1: Name a Discount
 
 Write a function `Discount10` that takes a price and returns 90% of it.
+
+First write the unnamed operation for one price: `×0.9 80`. Then move the reusable part to the right side of `←`, leaving the sample price on the next line.
 
 .collapse {Solution}
     ```uiua
@@ -77,6 +106,8 @@ Write a function `Discount10` that takes a price and returns 90% of it.
 ## Exercise 2: Celsius Batch
 
 Use `Fahrenheit` on the vector `0_10_20_30`.
+
+You do not need to rewrite the formula for vectors. Because multiplication and addition are pervasive, the same `Fahrenheit` function converts each element.
 
 .collapse {Solution}
     ```uiua
@@ -93,6 +124,8 @@ Compute the mean of:
 [18 22 31 25 29 40]
 ```
 
+Reuse the `Mean` helper from the lesson. Before using it, you can run `/+ [18 22 31 25 29 40]` and `⧻ [18 22 31 25 29 40]` separately to confirm the sum and count.
+
 .collapse {Solution}
     ```uiua
     Mean ← ˜÷⊃(/+|⧻)
@@ -104,9 +137,10 @@ Compute the mean of:
 
 Use `Square` on the vector `1_2_3_4_5`.
 
+The `Square` function was introduced with one number, but its body uses multiplication, which works across arrays. The result should keep the same vector shape.
+
 .collapse {Solution}
     ```uiua
     Square ← ˙×
     Square 1_2_3_4_5
     ```
-

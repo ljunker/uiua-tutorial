@@ -5,6 +5,8 @@ Uiua programs are read from right to left. Values are pushed onto a stack, and f
 
 If words like "stack", "monadic", or "dyadic" are new, read [Core Concepts](00-core-concepts.qd) first. This page focuses on using those ideas with tiny runnable programs.
 
+Start with very small expressions. In Uiua, a one-line program can be complete, and it is normal to run many tiny snippets while learning.
+
 ```uiua
 + 2 3
 ```
@@ -18,6 +20,15 @@ Output:
 The expression means: push `3`, push `2`, then apply `+`.
 
 `+` is dyadic, so it consumes two values. The result replaces those two consumed values on the stack.
+
+You can read the stack movement as a short trace:
+
+1. `3` appears first because Uiua reads from the right.
+2. `2` appears next and sits above `3`.
+3. `+` consumes both numbers.
+4. `5` is left as the only result.
+
+This is different from many languages where the operator sits between the two values. When a line feels confusing, cover the left side and read from the rightmost value back toward the glyph.
 
 ## Run Code
 
@@ -33,6 +44,8 @@ Use `uiua run` for files:
 uiua run examples/01_first_contact.ua
 ```
 
+Use `eval` when you want quick feedback on one expression. Use `run` when you want to keep a small program, rerun it, and edit it over time. Both commands use the same Uiua rules, so a snippet that works in `eval` can usually be copied into a `.ua` file.
+
 ## Stack Results
 
 If a program leaves multiple values on the stack, Uiua prints them. This is useful while learning.
@@ -43,6 +56,8 @@ If a program leaves multiple values on the stack, Uiua prints them. This is usef
 ```
 
 This leaves two results: `5` and `42`.
+
+Each line is independent here. The first line leaves `5`; the second line leaves `42`; the program ends with both results still visible. Later steps will show ways to combine results into arrays or named functions.
 
 ## Exercise 1: Predict the Stack
 
@@ -59,6 +74,8 @@ Then run:
 uiua eval '- 4 10
 ÷ 2 10'
 ```
+
+Work one line at a time. For `- 4 10`, the rightmost number `10` is on the stack before `4`, so the result is "10 minus 4." For `÷ 2 10`, the result is "10 divided by 2." Predicting before running is the fastest way to notice when your mental model is backwards.
 
 .collapse {Solution}
     ```txt
@@ -79,6 +96,12 @@ Write Uiua for this arithmetic:
 
 Hint: build the inner addition first.
 
+In ordinary notation, `(8 + 4)` must happen before multiplication. In Uiua, put the multiplication glyph on the left and let the addition expression on the right produce the value it needs. A useful way to draft it is:
+
+1. Write the inner expression: `+ 8 4`
+2. Decide what should happen to that result: multiply by `3`
+3. Put that operation on the left: `× 3 + 8 4`
+
 .collapse {Solution}
     ```uiua
     × 3 + 8 4
@@ -94,3 +117,13 @@ uiua run scratch.ua
 ```
 
 The goal is to get comfortable with the edit-run loop.
+
+Suggested starting file:
+
+```uiua
++ 2 3
+- 4 10
+× 3 + 8 4
+```
+
+After it runs, change one number on each line and run the file again. If Uiua reports an error, reduce the file back to one line and confirm that line first.
