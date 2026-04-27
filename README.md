@@ -2,6 +2,8 @@
 
 A Quarkdown tutorial for learning [Uiua](https://www.uiua.org/) through practical exercises.
 
+Read the rendered tutorial at <https://ljunker.github.io/uiua-tutorial/>.
+
 ## Requirements
 
 - `uiua` installed via Cargo
