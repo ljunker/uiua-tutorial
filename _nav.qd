@@ -3,10 +3,14 @@
 - [0. Core Concepts](steps/00-core-concepts.qd)
 - [1. First Contact](steps/01-first-contact.qd)
 - [2. Arrays](steps/02-arrays.qd)
-- [3. Modifiers](steps/03-modifiers.qd)
-- [4. Functions](steps/04-functions.qd)
-- [5. Practical Data Work](steps/05-practical-data.qd)
-- [6. Capstone](steps/06-capstone.qd)
+- [3. Shapes and Rows](steps/03-shapes-rows.qd)
+- [4. Selection and Filtering](steps/04-selection-filtering.qd)
+- [5. Modifiers](steps/05-modifiers.qd)
+- [6. Functions](steps/06-functions.qd)
+- [7. Practical Data Work](steps/07-practical-data.qd)
+- [8. Text and Boxes](steps/08-text-boxes.qd)
+- [9. Debugging and Refactoring](steps/09-debugging-refactoring.qd)
+- [10. Capstone](steps/10-capstone.qd)
 
 ###! Glyph Curriculum
 - [Glyph Roadmap](glyphs/00-roadmap.qd)

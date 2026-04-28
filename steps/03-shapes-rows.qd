@@ -1,0 +1,150 @@
+.docname {3. Shapes and Rows}
+.include {docs}
+
+Arrays are not just containers of values. In Uiua, an array's shape tells many glyphs how to move through the data.
+
+This step slows down around that idea. If you know the shape of a value, you can usually predict whether a glyph will work on the whole value, on each row, or on a rearranged view of the same cells.
+
+Run the matching examples with:
+
+```sh
+uiua run examples/03_shapes_rows.ua
+```
+
+## Shape Is Part of the Data
+
+`△` returns the full shape of an array.
+
+```uiua
+△ [10 20 30]
+△ [10_12_9 8_15_11]
+```
+
+The first value is a vector, so its shape has one number: its length. The second value is a matrix, so its shape has two numbers: rows first, then columns.
+
+That row-first order matters. A matrix shaped `2_3` has two rows and three columns. When a row-oriented glyph runs, it usually sees each row as one item.
+
+```uiua
+Grid ← ↯2_3 ⇡6
+Grid
+△ Grid
+```
+
+Read `↯2_3 ⇡6` as "take six values and arrange them as two rows of three." The values did not change; only their structure changed.
+
+## Rows, First, and Last
+
+`⊢` returns the first row. `⊣` returns the last row.
+
+```uiua
+⊢ [8 3 9]
+⊣ [8 3 9]
+```
+
+For a vector, each row is a scalar, so the first row is the first number. For a matrix, each row is itself a vector.
+
+```uiua
+Grid ← ↯3_4 ⇡12
+⊢ Grid
+⊣ Grid
+```
+
+This is a useful debugging trick. If a matrix looks wrong, inspect the shape, then inspect the first and last rows. You will often catch an incorrect reshape or a wrong row order before the code grows more complicated.
+
+## Reverse and Transpose
+
+`⇌` reverses the order of rows.
+
+```uiua
+⇌ [8 3 9]
+⇌ ↯3_4 ⇡12
+```
+
+On a vector, reversing rows reverses values. On a matrix, reversing rows flips the matrix vertically because the top-level rows move.
+
+`⍉` transposes a matrix. It swaps rows and columns.
+
+```uiua
+⍉ ↯2_3 ⇡6
+△ ⍉ ↯2_3 ⇡6
+```
+
+A `2_3` matrix becomes a `3_2` matrix. This is not sorting or flattening; it is reinterpreting the same cells along different axes.
+
+## Sort and Sort Indices
+
+`⍆` sorts rows.
+
+```uiua
+⍆ [12 7 19 4 8]
+```
+
+For simple numbers, sorting rows feels like normal sorting. For matrices, it sorts whole rows, not individual cells. That is powerful, but it means you should check the shape before assuming what will move.
+
+`⍏` gives the indices that would sort an array ascending.
+
+```uiua
+Scores ← [12 7 19 4 8]
+Order ← ⍏ Scores
+Order
+⊏ Order Scores
+```
+
+The last line selects rows by those indices, which produces the same sorted values as `⍆ Scores`. Keeping the order vector is useful when you need to apply the same ordering to another related array later.
+
+## Exercise 1: Inspect a Timesheet
+
+Create a 5-by-3 matrix from `0` through `14`. Return the matrix and its shape.
+
+Think of the shape before writing the code. Five days and three columns means `5_3`; that shape needs fifteen cells, so the range is `⇡15`.
+
+.collapse {Solution}
+    ```uiua
+    Timesheet ← ↯5_3 ⇡15
+    Timesheet
+    △ Timesheet
+    ```
+
+
+## Exercise 2: First and Last Day
+
+Using the same `Timesheet`, return the first row and the last row.
+
+This is a row question. Do not use indexing yet; use the dedicated row glyphs because they make the intent clearer.
+
+.collapse {Solution}
+    ```uiua
+    Timesheet ← ↯5_3 ⇡15
+    ⊢ Timesheet
+    ⊣ Timesheet
+    ```
+
+
+## Exercise 3: Transpose the Timesheet
+
+Transpose the `Timesheet` and inspect the new shape.
+
+Before running it, predict the result. A `5_3` matrix has five rows and three columns. After transpose, the shape should be `3_5`.
+
+.collapse {Solution}
+    ```uiua
+    Timesheet ← ↯5_3 ⇡15
+    Transposed ← ⍉ Timesheet
+    Transposed
+    △ Transposed
+    ```
+
+
+## Exercise 4: Sort and Keep the Order
+
+Given scores `[12 7 19 4 8]`, compute the ascending order indices, then use those indices to produce the sorted scores.
+
+This exercise is deliberately two lines. `⍆ Scores` is shorter, but `⍏ Scores` teaches the reusable idea: sometimes the useful result is not the sorted data itself, but the row order that sorts it.
+
+.collapse {Solution}
+    ```uiua
+    Scores ← [12 7 19 4 8]
+    Order ← ⍏ Scores
+    Order
+    ⊏ Order Scores
+    ```

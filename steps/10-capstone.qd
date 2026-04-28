@@ -1,9 +1,15 @@
-.docname {6. Capstone}
+.docname {10. Capstone}
 .include {docs}
 
 The capstone is a small report over a week of shop data. Try to solve it in `scratch.ua` before opening the solution.
 
 Work in small checkpoints. Do not try to write the final program in one pass. After each line, run the file and confirm that the shape and values still match the task.
+
+Run the matching complete example with:
+
+```sh
+uiua run examples/10_capstone.ua
+```
 
 ## Data
 
@@ -37,6 +43,8 @@ Expected shapes:
 3. Compute total revenue for the week.
 4. Compute the running daily revenue.
 5. Compute the mean daily revenue.
+6. Normalize daily revenue by the best day.
+7. Center daily revenue around the mean.
 
 Treat these as a pipeline:
 
@@ -45,6 +53,14 @@ Treat these as a pipeline:
 3. Sum each row to get daily revenue.
 4. Summarize that daily vector in several ways.
 
+Do not compress these tasks into one line while solving. A readable capstone solution is a sequence of named transformations:
+
+- raw counts
+- prices
+- revenue by product
+- daily revenue
+- weekly summaries
+
 ## Hints
 
 - Array multiplication works elementwise.
@@ -52,6 +68,8 @@ Treat these as a pipeline:
 - `/+` sums a whole vector.
 - `\+` gives running totals.
 - Reuse `Mean ← ˜÷⊃(/+|⧻)`.
+- `Normalize ← ˜÷⟜(/↥)` divides each value by the maximum.
+- `Centered ← ˜-⟜Mean` subtracts the mean from each value.
 
 If a result is surprising, check its shape with `△`. Product revenue should still be shaped like the original sales matrix. Daily revenue should be a vector with seven values.
 
@@ -62,6 +80,17 @@ If a result is surprising, check its shape with `△`. Product revenue should st
 3. Bind that expression as `RevenueByProduct`.
 4. Apply `≡/+` to the revenue matrix and confirm there is one number per day.
 5. Only then add weekly total, running total, and mean.
+6. Add normalization and centering only after the daily vector is correct.
+
+At each checkpoint, print both the value and the shape:
+
+```uiua
+Revenue ← RevenueByProduct Sales
+Revenue
+△ Revenue
+```
+
+Delete those debug lines later if you want a cleaner report, but keep them while building.
 
 ## Solution
 
@@ -84,6 +113,8 @@ If a result is surprising, check its shape with `△`. Product revenue should st
     WeeklyRevenue Daily
     RunningRevenue Daily
     Mean Daily
+    Normalize Daily
+    Centered Daily
     ```
 
 

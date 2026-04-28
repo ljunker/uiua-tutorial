@@ -1,0 +1,165 @@
+.docname {9. Debugging and Refactoring}
+.include {docs}
+
+Uiua can become dense quickly. The answer is not to avoid density forever; the answer is to build dense expressions from small pieces that you have already tested.
+
+This step gives you a practical debugging loop for Uiua:
+
+1. Inspect the shape.
+2. Run the smallest useful expression.
+3. Bind working pieces to names.
+4. Compose only after each piece behaves.
+5. Keep a few examples that prove the code still works.
+
+Run the matching examples with:
+
+```sh
+uiua run examples/09_debugging_refactoring.ua
+```
+
+## Shape Debugging
+
+When an expression fails, or when a result looks plausible but suspicious, ask for its shape.
+
+```uiua
+Sales ← [10_12_9 8_15_11 13_14_10]
+△ Sales
+⊢ Sales
+```
+
+The shape tells you the broad structure. The first row tells you what one row looks like. Together, they usually reveal whether you are working with a vector, a matrix, or boxed uneven data.
+
+This habit is especially important before using `≡`. Rows applies a function row by row. If your "row" is not what you think it is, the code may still run while answering a different question.
+
+## Split a Dense Expression
+
+This compact mean function is useful:
+
+```uiua
+Mean ← ˜÷⊃(/+|⧻)
+```
+
+But while learning, split it:
+
+```uiua
+Scores ← [18 22 31 25 29 40]
+Sum ← /+
+Count ← ⧻
+
+Sum Scores
+Count Scores
+```
+
+Once the pieces are clear, the compact version is less mysterious:
+
+- `/+` computes the sum.
+- `⧻` computes the count.
+- `⊃(/+|⧻)` runs both on the same input.
+- `˜÷` divides in the order `sum / count`.
+
+Refactoring in Uiua often means moving between named pieces and tacit composition. Named pieces are better for learning and debugging. Tacit composition is better when the data flow is already obvious.
+
+## Check Intermediate Values
+
+Suppose you want daily revenue from product counts and prices.
+
+```uiua
+Sales ← [10_12_9 8_15_11 13_14_10]
+Prices ← 5_8_12
+
+Revenue ← ×¤Prices Sales
+Daily ← ≡/+ Revenue
+```
+
+Do not jump straight to the final total. Print the intermediate values:
+
+```uiua
+Revenue
+△ Revenue
+Daily
+△ Daily
+```
+
+The revenue matrix should have the same shape as `Sales`. The daily vector should have one value per row. If either shape is wrong, fix that stage before adding weekly totals or means.
+
+## Exercise 1: Debug the Pipeline
+
+Given:
+
+```uiua
+Sales ← [10_12_9 8_15_11 13_14_10]
+Prices ← 5_8_12
+```
+
+Write a small report that prints:
+
+1. The shape of `Sales`.
+2. Revenue by product.
+3. The shape of revenue.
+4. Daily totals.
+
+This exercise is about observability. The extra output is not final user-facing code; it is scaffolding that helps you trust the next line.
+
+.collapse {Solution}
+    ```uiua
+    Sales ← [10_12_9 8_15_11 13_14_10]
+    Prices ← 5_8_12
+
+    Revenue ← ×¤Prices Sales
+    Daily ← ≡/+ Revenue
+
+    △ Sales
+    Revenue
+    △ Revenue
+    Daily
+    ```
+
+
+## Exercise 2: Expand Mean
+
+Compute the mean of `[18 22 31 25 29 40]` without using the compact `Mean` definition.
+
+Bind `Sum` and `Count` separately, then divide. This is intentionally less clever than the tacit version. It is a good way to verify that you understand what the compact code is doing.
+
+.collapse {Solution}
+    ```uiua
+    Scores ← [18 22 31 25 29 40]
+    Sum ← /+
+    Count ← ⧻
+
+    ÷ Count Scores Sum Scores
+    ```
+
+
+## Exercise 3: Refactor Back to a Helper
+
+After solving Exercise 2, define `Mean` and run it on the same scores.
+
+The helper should hide the implementation but not the idea. A good helper name lets later code say what it means.
+
+.collapse {Solution}
+    ```uiua
+    Scores ← [18 22 31 25 29 40]
+    Mean ← ˜÷⊃(/+|⧻)
+    Mean Scores
+    ```
+
+
+## Exercise 4: Add a Check Before a Summary
+
+Before computing total weekly revenue from a revenue matrix, print the daily vector and its shape.
+
+This is a realistic workflow: you keep the debug output while building, then remove or comment it once the result is stable.
+
+.collapse {Solution}
+    ```uiua
+    Sales ← [10_12_9 8_15_11 13_14_10]
+    Prices ← 5_8_12
+
+    Revenue ← ×¤Prices Sales
+    Daily ← ≡/+ Revenue
+
+    Daily
+    △ Daily
+    /+ Daily
+    ```

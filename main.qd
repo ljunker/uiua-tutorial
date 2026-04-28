@@ -30,10 +30,14 @@ The local project targets:
 
 - [First Contact](steps/01-first-contact.qd): execution order, the stack, and the CLI.
 - [Arrays](steps/02-arrays.qd): vectors, ranges, shapes, and reshaping.
-- [Modifiers](steps/03-modifiers.qd): reduce, scan, rows, and table.
-- [Functions](steps/04-functions.qd): naming reusable code and composing small functions.
-- [Practical Data Work](steps/05-practical-data.qd): solve small data tasks with array operations.
-- [Capstone](steps/06-capstone.qd): build a small analysis script from scratch.
+- [Shapes and Rows](steps/03-shapes-rows.qd): inspect axes, transpose matrices, sort rows, and reason about row-first operations.
+- [Selection and Filtering](steps/04-selection-filtering.qd): take, drop, index, select, filter with masks, and find positions.
+- [Modifiers](steps/05-modifiers.qd): reduce, scan, rows, table, windows, and grouping.
+- [Functions](steps/06-functions.qd): naming reusable code and composing small functions.
+- [Practical Data Work](steps/07-practical-data.qd): solve small data tasks with array operations.
+- [Text and Boxes](steps/08-text-boxes.qd): work with strings, boxed values, uneven groups, and parsed numbers.
+- [Debugging and Refactoring](steps/09-debugging-refactoring.qd): inspect shapes, split dense tacit code, and make code easier to test.
+- [Capstone](steps/10-capstone.qd): build a small analysis script from scratch.
 
 ## Glyph Curriculum
 
@@ -42,8 +46,9 @@ The guided lessons introduce glyphs as needed. The [Glyph Roadmap](glyphs/00-roa
 Use the glyph pages as drills after each guided step:
 
 - After step 1: [Syntax and Starter Glyphs](glyphs/01-syntax-starters.qd)
-- After step 2: [Math and Comparisons](glyphs/02-math-comparison.qd) and [Array Structure](glyphs/03-array-structure.qd)
-- After step 3: [Selection and Searching](glyphs/04-selection-search.qd) and [Modifiers](glyphs/05-modifiers.qd)
+- After steps 2 and 3: [Math and Comparisons](glyphs/02-math-comparison.qd) and [Array Structure](glyphs/03-array-structure.qd)
+- After step 4: [Selection and Searching](glyphs/04-selection-search.qd)
+- After step 5: [Modifiers](glyphs/05-modifiers.qd)
 - After the capstone: [Advanced and Experimental](glyphs/06-advanced.qd)
 
 If a term like "dyadic" or "pervasive" is unfamiliar, start with [Core Concepts](steps/00-core-concepts.qd). The rest of the tutorial assumes that vocabulary.

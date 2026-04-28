@@ -46,6 +46,25 @@ uiua run examples/01_first_contact.ua
 
 Use `eval` when you want quick feedback on one expression. Use `run` when you want to keep a small program, rerun it, and edit it over time. Both commands use the same Uiua rules, so a snippet that works in `eval` can usually be copied into a `.ua` file.
 
+## Reading One Line Slowly
+
+When a Uiua line is new, do not try to understand the whole expression at once. Find the rightmost complete value, then move left until you hit the function that consumes it.
+
+```uiua
+× 3 + 8 4
+```
+
+The right side `+ 8 4` produces `12`. Then `× 3` multiplies that result by `3`, producing `36`.
+
+A practical paper habit helps:
+
+1. Underline the rightmost value or subexpression.
+2. Write the value it produces above it.
+3. Move left to the next function.
+4. Replace the consumed values with the result.
+
+This is slow on purpose. You will not read Uiua this way forever, but it builds the correct mental model.
+
 ## Stack Results
 
 If a program leaves multiple values on the stack, Uiua prints them. This is useful while learning.
@@ -58,6 +77,27 @@ If a program leaves multiple values on the stack, Uiua prints them. This is usef
 This leaves two results: `5` and `42`.
 
 Each line is independent here. The first line leaves `5`; the second line leaves `42`; the program ends with both results still visible. Later steps will show ways to combine results into arrays or named functions.
+
+## Negative Numbers
+
+Uiua uses `¯` for negative numbers.
+
+```uiua
++ 10 ¯3
+```
+
+This returns `7`. The normal hyphen glyph `-` is subtraction, so using a separate negative sign avoids ambiguity. When you copy data from another source, check negative values carefully; `-3` and `¯3` are not the same thing in Uiua source code.
+
+## Comments
+
+Use `#` for comments in `.ua` files.
+
+```uiua
+# Daily change from yesterday
+- 7 12
+```
+
+Comments are useful while learning because the glyphs are compact. Write down what you expect a line to do, then run the file and compare the output.
 
 ## Exercise 1: Predict the Stack
 
@@ -127,3 +167,36 @@ Suggested starting file:
 ```
 
 After it runs, change one number on each line and run the file again. If Uiua reports an error, reduce the file back to one line and confirm that line first.
+
+## Exercise 4: Trace a Nested Expression
+
+Predict the result before running:
+
+```uiua
+- 5 × 2 + 3 4
+```
+
+Work from the right. First compute the addition, then the multiplication, then the subtraction. Write each intermediate value down.
+
+.collapse {Solution}
+    ```txt
+    9
+    ```
+
+    `+ 3 4` gives `7`. `× 2 7` gives `14`. `- 5 14` computes `14 - 5`, so the final result is `9`.
+
+
+## Exercise 5: Practice Negative Numbers
+
+Write Uiua code for this calculation:
+
+```txt
+10 + -3
+```
+
+The important part is using Uiua's negative sign for the data value.
+
+.collapse {Solution}
+    ```uiua
+    + 10 ¯3
+    ```

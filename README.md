@@ -4,6 +4,8 @@ A Quarkdown tutorial for learning [Uiua](https://www.uiua.org/) through practica
 
 Read the rendered tutorial at <https://ljunker.github.io/uiua-tutorial/>.
 
+The guided path currently has 10 steps, plus a separate glyph curriculum ordered by difficulty.
+
 ## Requirements
 
 - `uiua` installed via Cargo
@@ -29,4 +31,4 @@ This checks all Uiua example files and compiles the Quarkdown documentation.
 
 ## Learn
 
-Start with `main.qd`, or open the rendered `output/index.html` after building.
+Start with `main.qd`, or open the rendered `quarkdown-output/Practical-Uiua/index.html` after building.

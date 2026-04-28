@@ -1,0 +1,142 @@
+.docname {4. Selection and Filtering}
+.include {docs}
+
+Once you can inspect shapes and rows, the next practical skill is choosing which rows to keep.
+
+Selection in Uiua has two common styles:
+
+- Position-based selection: take the first rows, drop rows, pick one item, or select by index.
+- Content-based filtering: compute a mask from the data, then keep the rows where the mask is true.
+
+Run the matching examples with:
+
+```sh
+uiua run examples/04_selection_filtering.ua
+```
+
+## Take, Drop, and Rotate
+
+`↙` takes rows. `↘` drops rows.
+
+```uiua
+Data ← [12 7 19 4 8]
+↙3 Data
+↘3 Data
+```
+
+`↙3 Data` returns the first three rows. `↘3 Data` removes the first three rows and returns the rest.
+
+These glyphs are useful after sorting. If you sort descending, then take three rows, you have the top three values.
+
+```uiua
+↙3 ⇌⍆ [12 7 19 4 8]
+```
+
+Read from right to left:
+
+1. Sort the data with `⍆`.
+2. Reverse the sorted data with `⇌`.
+3. Take the first three rows with `↙3`.
+
+## Pick and Select
+
+`⊡` picks one row or element. `⊏` selects rows by index and can return many rows.
+
+```uiua
+Data ← [8 3 9 2]
+⊡1 Data
+⊏ 2_0 Data
+```
+
+`⊡1 Data` returns the single item at index `1`. `⊏ 2_0 Data` returns two rows: row `2`, then row `0`.
+
+This distinction matters when you build larger programs. If you need one item, pick. If you need a list of rows, select.
+
+## Masks and Keep
+
+Comparisons produce arrays of booleans. `▽` uses counts or booleans to keep rows.
+
+```uiua
+Scores ← [18 22 31 25 29 40]
+≥25 Scores
+▽⊸≥25 Scores
+```
+
+The comparison `≥25 Scores` marks which scores are at least 25. The expression `▽⊸≥25 Scores` feeds that mask into `▽`, keeping only the passing scores.
+
+This pattern is worth practicing because it replaces many ordinary loops:
+
+1. Write a predicate such as `≥25`.
+2. Apply it to get a mask.
+3. Use `▽` to keep the matching rows.
+
+## Where
+
+`⊚` returns the indices of nonzero or true values.
+
+```uiua
+Mask ← ≥25 [18 22 31 25 29 40]
+⊚ Mask
+```
+
+Use `⊚` when you want positions rather than values. For example, a report might need the day numbers where sales passed a target, not just the sales values themselves.
+
+## Exercise 1: Top Three Scores
+
+From `[12 7 19 4 8]`, return the largest three values.
+
+Use the sort-reverse-take pattern from the lesson. Run each stage separately if the combined expression feels dense.
+
+.collapse {Solution}
+    ```uiua
+    ↙3 ⇌⍆ [12 7 19 4 8]
+    ```
+
+
+## Exercise 2: Passing Scores
+
+Keep scores at least `25` from `[18 22 31 25 29 40]`.
+
+First run only the comparison. Confirm that it produces one boolean per score. Then use that mask with `▽`.
+
+.collapse {Solution}
+    ```uiua
+    ▽⊸≥25 [18 22 31 25 29 40]
+    ```
+
+
+## Exercise 3: Passing Positions
+
+Return the indices of the scores that are at least `25`.
+
+This is not asking for the scores themselves. It is asking where they are, so compute the mask and pass it to `⊚`.
+
+.collapse {Solution}
+    ```uiua
+    ⊚ ≥25 [18 22 31 25 29 40]
+    ```
+
+
+## Exercise 4: Reorder by Hand
+
+Given names and scores:
+
+```uiua
+Names ← {"Ada" "Ben" "Cia" "Dan"}
+Scores ← [90 75 88 95]
+Order ← 3_0_2_1
+```
+
+Use `Order` to reorder both arrays.
+
+The important idea is that the same row indices can select from related arrays. If the arrays describe the same people in the same order, applying the same `Order` keeps the relationship intact.
+
+.collapse {Solution}
+    ```uiua
+    Names ← {"Ada" "Ben" "Cia" "Dan"}
+    Scores ← [90 75 88 95]
+    Order ← 3_0_2_1
+
+    ⊏ Order Names
+    ⊏ Order Scores
+    ```

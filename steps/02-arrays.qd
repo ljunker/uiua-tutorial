@@ -49,6 +49,25 @@ Output:
 
 The "not including" part matters. `⇡10` has ten numbers because it starts at zero. If you want `1` through `10`, shift the range with `+1 ⇡10`.
 
+## Pervasive Arithmetic
+
+Arithmetic glyphs are pervasive: they work through compatible arrays.
+
+```uiua
++ 10 [1 2 3 4]
+× 2 [1 2 3 4]
+```
+
+The scalar is applied to each value in the vector. This is the first major payoff of array programming. Instead of writing a loop that visits every item, you describe the operation once.
+
+Two arrays can also combine element by element when their shapes line up:
+
+```uiua
++ [10 20 30] [1 2 3]
+```
+
+Shape compatibility is important. If a program complains about shapes, inspect both shapes with `△` before changing the code.
+
 ## Shape and Reshape
 
 `△` gets an array's shape. `↯` reshapes data.
@@ -67,6 +86,20 @@ Read `↯ 2_3 ⇡6` from right to left:
 3. `↯` uses that shape to arrange the six values.
 
 The number of cells must match the shape. A `2_3` shape needs six values. A `3_4` shape needs twelve values.
+
+## Length Versus Shape
+
+`⧻` returns the number of rows. `△` returns the full shape.
+
+```uiua
+Grid ← ↯3_4 ⇡12
+⧻ Grid
+△ Grid
+```
+
+For a `3_4` matrix, the length is `3` because the matrix has three rows. The shape is `[3 4]` because each row has four values.
+
+This distinction is small but important. If you want to count all cells, flatten first or use a pattern that is meant for every element. If you want to process rows, length is often the right question.
 
 ## Exercise 1: Make a Calendar Row
 
@@ -113,3 +146,29 @@ The values are the same numbers before and after reshaping, but the shape change
 
 .collapse {Solution}
     `⇡12` is a vector, so its shape is `[12]`. `↯ 3_4 ⇡12` is a matrix, so its shape is `[3 4]`.
+
+
+## Exercise 4: Add Two Vectors
+
+Add `[10 20 30]` and `[1 2 3]`.
+
+This is elementwise addition. Both vectors have the same shape, so Uiua can pair the rows directly.
+
+.collapse {Solution}
+    ```uiua
+    + [10 20 30] [1 2 3]
+    ```
+
+
+## Exercise 5: Length and Shape
+
+For `↯4_2 ⇡8`, return both the length and the shape.
+
+Before running it, predict the two outputs. The value has four rows, and each row has two values.
+
+.collapse {Solution}
+    ```uiua
+    Grid ← ↯4_2 ⇡8
+    ⧻ Grid
+    △ Grid
+    ```

@@ -1,0 +1,128 @@
+.docname {8. Text and Boxes}
+.include {docs}
+
+Uiua strings are arrays of characters. That means many array ideas still apply: length, reverse, keep, search, and deduplicate all work on text.
+
+Boxes solve a different problem. Normal arrays are rectangular, but real data is often uneven: words have different lengths, groups have different sizes, and parsed records may not all share one shape. A box lets one value travel as a single item even if the value inside has its own shape.
+
+Run the matching examples with:
+
+```sh
+uiua run examples/08_text_boxes.ua
+```
+
+## Strings as Arrays
+
+A string behaves like a character vector.
+
+```uiua
+⧻ "uiua"
+⇌ "uiua"
+◴ "banana"
+```
+
+`⧻` counts characters. `⇌` reverses the character rows. `◴` deduplicates rows, so on a string it keeps the first occurrence of each character.
+
+This is a useful mental model: before reaching for a special string tool, ask whether the operation is really an array operation over characters.
+
+## Boxed Strings
+
+Curly braces create arrays of boxes.
+
+```uiua
+Words ← {"red" "blue" "green"}
+Words
+≡◇⧻ Words
+```
+
+Each word has a different length, so the words cannot form a normal rectangular character matrix. Boxing lets each word occupy one row of the outer array.
+
+`◇` means content. In `≡◇⧻ Words`, `≡` visits each boxed word, `◇` opens the box for the function call, and `⧻` counts the characters inside.
+
+## Parsing Text
+
+`⋕` parses strings as numbers.
+
+```uiua
+⋕ "42"
+⋕ {"12" "7" "19"}
+```
+
+Parsing a boxed list of strings is common when data starts as text. After parsing, you can use normal numeric tools such as `/+`, `/↥`, and comparisons.
+
+```uiua
+Nums ← ⋕ {"12" "7" "19"}
+/+ Nums
+```
+
+## Uneven Groups
+
+Grouping often creates uneven arrays. `⊕` groups values by bucket index.
+
+```uiua
+⊕□ 0_1_0 [5 6 7]
+```
+
+Bucket `0` receives `5` and `7`; bucket `1` receives `6`. Those groups have different lengths, so the result contains boxes.
+
+This is why boxes show up near grouping and text work. They are not an escape from array programming; they are how Uiua keeps uneven pieces explicit until you decide how to process them.
+
+## Exercise 1: Word Lengths
+
+Given:
+
+```uiua
+Words ← {"red" "blue" "green" "uiua"}
+```
+
+Return the length of each word.
+
+Solve one word first in your head: `"green"` has length `5`. Then use `≡` to apply the same operation to each boxed word.
+
+.collapse {Solution}
+    ```uiua
+    Words ← {"red" "blue" "green" "uiua"}
+    ≡◇⧻ Words
+    ```
+
+
+## Exercise 2: Deduplicate Letters
+
+Return each distinct character from `"mississippi"` once, preserving first appearance order.
+
+This is a row operation on characters. You do not need to split the string manually.
+
+.collapse {Solution}
+    ```uiua
+    ◴ "mississippi"
+    ```
+
+
+## Exercise 3: Parse and Sum
+
+Parse these boxed strings, then return their total:
+
+```uiua
+{"12" "7" "19" "4"}
+```
+
+Keep the parse step visible. It is easier to debug text-to-number code when you can inspect the parsed values before reducing them.
+
+.collapse {Solution}
+    ```uiua
+    Values ← ⋕ {"12" "7" "19" "4"}
+    Values
+    /+ Values
+    ```
+
+
+## Exercise 4: Group Then Sum
+
+Values are `[10 20 30 40 50]`. Group keys are `[0 1 0 1 0]`. Return the sum of each group.
+
+This combines uneven grouping with a normal numeric summary. Let `⊕` create the groups, and give it `/+` as the group function.
+
+.collapse {Solution}
+    ```uiua
+    ⊕/+ 0_1_0_1_0 [10 20 30 40 50]
+    ```

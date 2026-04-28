@@ -1,9 +1,15 @@
-.docname {3. Modifiers}
+.docname {5. Modifiers}
 .include {docs}
 
 Modifiers change how another function is applied. They are central to practical Uiua.
 
 A modifier is not usually useful by itself. It needs a function next to it. For example, `/` plus `+` becomes `/+`, which means "reduce with addition." The modifier decides the pattern; the function decides the operation.
+
+Run the matching examples with:
+
+```sh
+uiua run examples/05_modifiers.ua
+```
 
 ## Reduce
 
@@ -29,6 +35,15 @@ For a vector, the idea is:
 
 You can change the function after `/`. For example, `/× [1 2 3 4]` multiplies all values together.
 
+Reduce is not only for arithmetic. Any dyadic function that can combine two rows can be used after `/`. For example, `/↥` repeatedly keeps the larger value, which gives the maximum. `/↧` repeatedly keeps the smaller value, which gives the minimum.
+
+```uiua
+/↥ [12 7 19 4 8]
+/↧ [12 7 19 4 8]
+```
+
+The modifier did not change. The operation changed.
+
 ## Scan
 
 `\` is like reduce, but keeps intermediate results.
@@ -44,6 +59,8 @@ Output:
 ```
 
 Scan is useful whenever the history matters. A running bank balance, cumulative distance, or progress total is usually a scan.
+
+Scan is also a good way to debug a reduce. If `/+` returns a surprising final number, run `\+` on the same data. The running totals show where the unexpected change happened.
 
 ## Rows
 
@@ -72,6 +89,30 @@ Here the input is a matrix with three rows. The function `/+` sums one row. The 
 This creates a multiplication table.
 
 Think of the left vector as row labels and the right vector as column labels. `⊞×` fills every crossing with the product of the row value and the column value.
+
+Tables are useful when you need all combinations: quantity by price, distance by speed, product A by product B, or every possible score pairing. If your task says "every combination of these two lists", think of `⊞`.
+
+## Windows
+
+`⧈` applies a function to sliding windows.
+
+```uiua
+⧈/+ 3 [1 2 3 4 5 6]
+```
+
+This computes the sum of each 3-item window: rows `1 2 3`, then `2 3 4`, then `3 4 5`, and so on.
+
+Windows are common in time-series work. A moving average, rolling sum, or local maximum all start with the same idea: look at a small window, summarize it, slide forward.
+
+## Grouping
+
+`⊕` groups values by bucket index and applies a function to each group.
+
+```uiua
+⊕/+ 0_1_0_1_0 [10 20 30 40 50]
+```
+
+The keys say which bucket each value belongs to. Values with key `0` form one group; values with key `1` form another. Because groups can have different sizes, grouping is one of the places where boxes may appear in more advanced code.
 
 ## Exercise 1: Sum Expenses
 
@@ -130,4 +171,28 @@ Build the labels first: `+1⇡5` gives `1_2_3_4_5`. A square multiplication tabl
 .collapse {Solution}
     ```uiua
     ⊞× +1⇡5 +1⇡5
+    ```
+
+
+## Exercise 5: Moving Average Ingredients
+
+For `[4 8 6 10 12]`, compute the sum of each 2-item window.
+
+Do not compute the average yet. First make sure you can get the moving sums. A moving average is just this result divided by the window size.
+
+.collapse {Solution}
+    ```uiua
+    ⧈/+ 2 [4 8 6 10 12]
+    ```
+
+
+## Exercise 6: Group Totals
+
+Group values `[10 20 30 40 50]` by keys `[0 1 0 1 0]` and return the total for each group.
+
+The function after `⊕` is the summary to run inside each group. Here the summary is sum, so use `/+`.
+
+.collapse {Solution}
+    ```uiua
+    ⊕/+ 0_1_0_1_0 [10 20 30 40 50]
     ```

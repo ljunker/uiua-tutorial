@@ -1,4 +1,4 @@
-.docname {4. Functions}
+.docname {6. Functions}
 .include {docs}
 
 Once an expression works, give it a name. Uiua uses `←` for bindings.
@@ -17,6 +17,12 @@ Output:
 ```
 
 `Double ← ×2` binds the name `Double` to the function "multiply by 2." The next line calls that function with `21`. If the body after `←` works on a single value, try it on a vector too:
+
+Run the matching examples with:
+
+```sh
+uiua run examples/06_functions.ua
+```
 
 ```uiua
 Double 1_2_3
@@ -47,6 +53,15 @@ Read from right to left: multiply by `1.8`, then add `32`.
 
 When composing, write and test the smallest part first. For `Fahrenheit`, test `×1.8 20`, then test `+32 ×1.8 20`, then bind the working pipeline to a name.
 
+The right side of a binding should usually be the reusable part, not the test data. This is a good beginner rule:
+
+1. Run the expression with sample data.
+2. Remove the sample data.
+3. Bind the remaining function to a name.
+4. Put the sample data on the next line and call the name.
+
+That gives you a tiny test every time you create a helper.
+
 ## Fork
 
 `⊃` calls two functions on the same input. This mean function computes both the sum and the length of the array, then divides sum by length.
@@ -72,6 +87,17 @@ Break the function into pieces:
 - `˜÷` divides the sum by the length in the order humans usually say it.
 
 This is dense at first. It is fine to keep `Mean` as a named helper and use it without memorizing every glyph immediately.
+
+## Before and After Hooks
+
+`⟜` keeps one side of a dyadic function fixed while the original input flows through the other side. It is useful when a summary of the same data should be used as a reference.
+
+```uiua
+Normalize ← ˜÷⟜(/↥)
+Normalize [18 22 31 25 29 40]
+```
+
+The helper says: find the maximum of the input, then divide each value by that maximum. This style avoids naming an intermediate `Max` value, but while learning you can always split it into named lines first.
 
 ## Self
 
@@ -143,4 +169,35 @@ The `Square` function was introduced with one number, but its body uses multipli
     ```uiua
     Square ← ˙×
     Square 1_2_3_4_5
+    ```
+
+
+## Exercise 5: Normalize Scores
+
+Define `Normalize` so that each score is divided by the maximum score. Run it on `[18 22 31 25 29 40]`.
+
+First check `/↥ Scores` by itself. Once you trust the maximum, use the helper from the lesson.
+
+.collapse {Solution}
+    ```uiua
+    Scores ← [18 22 31 25 29 40]
+    Normalize ← ˜÷⟜(/↥)
+    Normalize Scores
+    ```
+
+
+## Exercise 6: Name a Row Helper
+
+Define `RowTotal` as a helper that sums one row. Use it with `≡` on:
+
+```uiua
+[10_12_9 8_15_11 13_14_10]
+```
+
+This exercise separates the row-level idea from the matrix-level application. `RowTotal` knows how to process one row; `≡` decides to run it for every row.
+
+.collapse {Solution}
+    ```uiua
+    RowTotal ← /+
+    ≡RowTotal [10_12_9 8_15_11 13_14_10]
     ```

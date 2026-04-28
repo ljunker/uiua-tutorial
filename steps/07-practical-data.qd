@@ -1,4 +1,4 @@
-.docname {5. Practical Data Work}
+.docname {7. Practical Data Work}
 .include {docs}
 
 This step combines the pieces into small data-analysis tasks.
@@ -12,6 +12,12 @@ Scores ← [18 22 31 25 29 40]
 ```
 
 Keep the data named while exploring. Named data makes it easy to run one expression at a time without retyping the vector.
+
+Run the matching examples with:
+
+```sh
+uiua run examples/07_practical_data.ua
+```
 
 ## Total, Count, and Mean
 
@@ -31,6 +37,18 @@ Read these as three separate questions:
 - `Mean Scores`: what is total divided by count?
 
 When debugging a composed function such as `Mean`, run its ingredients separately first.
+
+## Filter and Summarize
+
+Often you do not summarize all rows. You first keep the rows that match a condition.
+
+```uiua
+Passing ← ▽⊸≥25
+Passing Scores
+Mean Passing Scores
+```
+
+This reads as two separate ideas: define what counts as passing, then summarize only those rows. Keeping the filter as a named helper makes later code easier to read.
 
 ## Minimum and Maximum
 
@@ -148,4 +166,38 @@ This asks for all pairs, so use table `⊞`. The counts are `+1⇡4`; the prices
 .collapse {Solution}
     ```uiua
     ⊞× +1⇡4 5_10_20
+    ```
+
+
+## Exercise 5: Mean of Passing Scores
+
+From `Scores ← [18 22 31 25 29 40]`, keep scores at least `25`, then compute their mean.
+
+Do this in two named steps. First define `Passing`, then call `Mean` on the filtered data.
+
+.collapse {Solution}
+    ```uiua
+    Scores ← [18 22 31 25 29 40]
+    Mean ← ˜÷⊃(/+|⧻)
+    Passing ← ▽⊸≥25
+
+    Passing Scores
+    Mean Passing Scores
+    ```
+
+
+## Exercise 6: Best Three Average
+
+From `[12 7 19 4 8]`, take the largest three values and compute their mean.
+
+This combines the top-three pattern with the mean helper. Keep the top-three expression named so you can inspect it before taking the mean.
+
+.collapse {Solution}
+    ```uiua
+    Scores ← [12 7 19 4 8]
+    Mean ← ˜÷⊃(/+|⧻)
+    TopThree ← ↙3⇌⍆
+
+    TopThree Scores
+    Mean TopThree Scores
     ```
